@@ -6,6 +6,18 @@ RUN conda install -yq -c conda-forge nbrsessionproxy && \
 # install rstudio-server
 USER root
 
+RUN apt-get -qq update && \
+    apt-get -qq install --yes \
+       libapparmor1 \
+       lsb-release \
+       psmisc \
+       r-base \
+       sudo \
+       > /dev/null && \
+    apt-get -qq purge && \
+    apt-get -qq clean && \
+    rm -rf /var/lib/apt/lists/*
+
 RUN curl --silent --location --fail https://download2.rstudio.org/rstudio-server-1.1.419-amd64.deb > /tmp/rstudio.deb && \
 echo '24cd11f0405d8372b4168fc9956e0386 /tmp/rstudio.deb' | md5sum -c - && \
 dpkg -i /tmp/rstudio.deb && \
