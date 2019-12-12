@@ -109,7 +109,7 @@ RUN rm ${RSTUDIO_PKG}
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-USER $NB_USER
+USER jovian
 
 RUN pip install git+https://github.com/jupyterhub/jupyter-rsession-proxy
 
