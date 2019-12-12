@@ -26,6 +26,7 @@ echo '24cd11f0405d8372b4168fc9956e0386 /tmp/rstudio.deb' | md5sum -c - && \
 dpkg -i /tmp/rstudio.deb && \
 rm /tmp/rstudio.deb
 
+COPY shiny-server.conf /etc/init/shiny-server/
 
 RUN curl --silent --location --fail https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.7.907-amd64.deb > /tmp/shiny.deb && \
 echo '78371a8361ba0e7fec44edd2b8e425ac /tmp/shiny.deb' | md5sum -c - && \
@@ -83,7 +84,6 @@ RUN echo "options(repos = c(CRAN='https://mran.microsoft.com/snapshot/2019-04-10
 #USER ${NB_USER}
 #RUN Rscript install.R
 
-COPY shiny-server.conf /etc/shiny-server/
 # Container image Labels!
 # Put these at the end, since we don't want to rebuild everything
 # when these change! Did I mention I hate Dockerfile cache semantics?
