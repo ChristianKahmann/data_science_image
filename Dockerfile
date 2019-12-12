@@ -121,6 +121,11 @@ RUN rm ${RSTUDIO_PKG}
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+RUN install -o ${NB_USER} -g ${NB_USER} -d /var/log/shiny-server && \
+install -o ${NB_USER} -g ${NB_USER} -d /var/lib/shiny-server && \
+install -o ${NB_USER} -g ${NB_USER} /dev/null /var/log/shiny-server.log && \
+install -o ${NB_USER} -g ${NB_USER} /dev/null /var/run/shiny-server.pid
+
 USER $NB_USER
 
 RUN pip install git+https://github.com/jupyterhub/jupyter-rsession-proxy
