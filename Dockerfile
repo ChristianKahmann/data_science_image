@@ -1,4 +1,4 @@
-FROM jupyter/r-notebook # or datascience-notebook
+FROM jupyter/r-notebook 
 # install nbrsessionproxy extension
 RUN conda install -yq -c conda-forge nbrsessionproxy && \
     conda clean -tipsy
