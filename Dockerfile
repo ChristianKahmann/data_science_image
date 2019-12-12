@@ -103,6 +103,7 @@ RUN pip install --no-cache-dir nbgitpuller
 # avoid prompts from apt
 ENV DEBIAN_FRONTEND=noninteractive
 
+USER root 
 # Set up locales properly
 RUN apt-get -qq update && \
     apt-get -qq install --yes --no-install-recommends locales > /dev/null && \
