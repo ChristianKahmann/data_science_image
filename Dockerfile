@@ -63,13 +63,13 @@ USER root
 # in the repository into the image.
 RUN echo "options(repos = c(CRAN='https://mran.microsoft.com/snapshot/2019-04-10'), download.file.method = 'libcurl')" > /etc/R/Rprofile.site
 
-RUN install -o ${NB_USER} -g ${NB_USER} -d /var/log/shiny-server && \
-install -o ${NB_USER} -g ${NB_USER} -d /var/lib/shiny-server && \
-install -o ${NB_USER} -g ${NB_USER} /dev/null /var/log/shiny-server.log && \
-install -o ${NB_USER} -g ${NB_USER} /dev/null /var/run/shiny-server.pid
+#RUN install -o ${NB_USER} -g ${NB_USER} -d /var/log/shiny-server && \
+#install -o ${NB_USER} -g ${NB_USER} -d /var/lib/shiny-server && \
+#install -o ${NB_USER} -g ${NB_USER} /dev/null /var/log/shiny-server.log && \
+#install -o ${NB_USER} -g ${NB_USER} /dev/null /var/run/shiny-server.pid
 
-USER ${NB_USER}
-RUN Rscript install.R
+#USER ${NB_USER}
+#RUN Rscript install.R
 
 
 # Container image Labels!
