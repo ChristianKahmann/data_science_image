@@ -75,11 +75,11 @@ ENV R_LIBS_USER ${APP_BASE}/rlibs
 ENV PATH ${NB_PYTHON_PREFIX}/bin:${CONDA_DIR}/bin:${NPM_DIR}/bin:/usr/lib/rstudio-server/bin/:${PATH}
 # If scripts required during build are present, copy them
 
-COPY conda/install-miniconda.bash /tmp/install-miniconda.bash
+#COPY conda/install-miniconda.bash /tmp/install-miniconda.bash
 
-COPY conda/activate-conda.sh /etc/profile.d/activate-conda.sh
+#COPY conda/activate-conda.sh /etc/profile.d/activate-conda.sh
 
-COPY conda/environment.py-3.7.frozen.yml /tmp/environment.yml
+#COPY conda/environment.py-3.7.frozen.yml /tmp/environment.yml
 RUN mkdir -p ${NPM_DIR} && \
 chown -R ${NB_USER}:${NB_USER} ${NPM_DIR}
 
