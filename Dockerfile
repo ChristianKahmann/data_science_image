@@ -43,7 +43,7 @@ ENV PATH ${HOME}/.local/bin:${REPO_DIR}/.local/bin:${PATH}
 
 USER root
 
-RUN chown -R ${NB_USER}:${NB_USER} ${REPO_DIR}
+RUN chown -R ${NB_USER} ${REPO_DIR}
 
 RUN echo "options(repos = c(CRAN='https://mran.microsoft.com/snapshot/2019-04-10'), download.file.method = 'libcurl')" > /etc/R/Rprofile.site
 
