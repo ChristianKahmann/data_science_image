@@ -5,28 +5,13 @@ RUN conda install -yq -c conda-forge nbrsessionproxy && \
 
 # install rstudio-server
 USER root
-
-RUN apt-get -qq update && \
-    apt-get -qq install --yes \
-       libapparmor1 \
-       lsb-release \
-       psmisc \
-       r-base \
-       sudo \
-       > /dev/null && \
-    apt-get -qq purge && \
-    apt-get -qq clean && \
-    rm -rf /var/lib/apt/lists/*
-
-RUN apt-get update  
-RUN apt-get install libssl1.0.0 -y    
-
-RUN curl --silent --location --fail https://download2.rstudio.org/rstudio-server-1.1.419-amd64.deb > /tmp/rstudio.deb && \
-echo '24cd11f0405d8372b4168fc9956e0386 /tmp/rstudio.deb' | md5sum -c - && \
-dpkg -i /tmp/rstudio.deb && \
-rm /tmp/rstudio.deb
-
-RUN apt-get install nano
+RUN apt-get update && \
+    curl --silent -L --fail https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.2.5019-amd64.deb > /tmp/rstudio.deb && \
+    apt-get install -y /tmp/rstudio.deb && \
+    rm /tmp/rstudio.deb && \
+    apt-get clean
+    
+ENV PATH=$PATH:/usr/lib/rstudio-server/bin
 
 RUN curl --silent --location --fail https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.7.907-amd64.deb > /tmp/shiny.deb && \
 echo '78371a8361ba0e7fec44edd2b8e425ac /tmp/shiny.deb' | md5sum -c - && \
@@ -49,32 +34,19 @@ R --quiet -e "IRkernel::installspec(prefix='$NB_PYTHON_PREFIX')"
 
 RUN R --quiet -e "install.packages('shiny', repos='https://mran.microsoft.com/snapshot/2019-04-10', method='libcurl')"
 
-
-
-# Allow target path repo is cloned to be configurable
 ARG REPO_DIR=${HOME}
 ENV REPO_DIR ${REPO_DIR}
 WORKDIR ${REPO_DIR}
 
-# We want to allow two things:
-#   1. If there's a .local/bin directory in the repo, things there
-#      should automatically be in path
-#   2. postBuild and users should be able to install things into ~/.local/bin
-#      and have them be automatically in path
-#
-# The XDG standard suggests ~/.local/bin as the path for local user-specific
-# installs. See https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
 ENV PATH ${HOME}/.local/bin:${REPO_DIR}/.local/bin:${PATH}
 
-# Copy and chown stuff. This doubles the size of the repo, because
-# you can't actually copy as USER, only as root! Thanks, Docker!
-USER root
-#COPY src/ ${REPO_DIR}
-#RUN chown -R ${NB_USER}:${NB_USER} ${REPO_DIR}
 
-# Run assemble scripts! These will actually build the specification
-# in the repository into the image.
+USER root
+
+
+
 RUN echo "options(repos = c(CRAN='https://mran.microsoft.com/snapshot/2019-04-10'), download.file.method = 'libcurl')" > /etc/R/Rprofile.site
+
 
 
 COPY shiny-server.conf /etc/shiny-server/
