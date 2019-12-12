@@ -13,6 +13,8 @@ RUN apt-get update && \
     
 ENV PATH=$PATH:/usr/lib/rstudio-server/bin
 
+
+
 RUN curl --silent --location --fail https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.7.907-amd64.deb > /tmp/shiny.deb && \
 echo '78371a8361ba0e7fec44edd2b8e425ac /tmp/shiny.deb' | md5sum -c - && \
 dpkg -i /tmp/shiny.deb && \
@@ -54,7 +56,7 @@ ENV PATH ${HOME}/.local/bin:${REPO_DIR}/.local/bin:${PATH}
 # Copy and chown stuff. This doubles the size of the repo, because
 # you can't actually copy as USER, only as root! Thanks, Docker!
 USER root
-COPY src/ ${REPO_DIR}
+#COPY src/ ${REPO_DIR}
 RUN chown -R ${NB_USER}:${NB_USER} ${REPO_DIR}
 
 # Run assemble scripts! These will actually build the specification
