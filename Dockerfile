@@ -99,7 +99,7 @@ RUN conda install --quiet --yes \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
-USER ROOT
+
 ENV RSTUDIO_PKG=rstudio-server-1.0.136-amd64.deb
 
 RUN wget -q http://download2.rstudio.org/${RSTUDIO_PKG}
