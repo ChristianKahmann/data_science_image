@@ -99,7 +99,7 @@ RUN conda install --quiet --yes \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
-
+USER root
 RUN apt-get update && \
 	apt-get install -y --no-install-recommends \
 		libapparmor1 \
@@ -112,7 +112,7 @@ RUN apt-get update && \
 ENV RSTUDIO_PKG=rstudio-server-1.0.136-amd64.deb
 
 RUN wget -q http://download2.rstudio.org/${RSTUDIO_PKG}
-USER root
+
 RUN dpkg -i ${RSTUDIO_PKG}
 RUN rm ${RSTUDIO_PKG}
 
