@@ -86,7 +86,7 @@ ADD solr-1/docker-entrypoint-initdb.d /docker-entrypoint-initdb.d
 
 
 
-RUN CHOWN -R jovian /opt/solr/
+RUN chown -R jovian /opt/solr/
 
 
 
