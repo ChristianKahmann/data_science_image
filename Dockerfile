@@ -17,7 +17,8 @@ RUN apt-get -qq update && \
     apt-get -qq purge && \
     apt-get -qq clean && \
     rm -rf /var/lib/apt/lists/*
-    
+
+RUN apt-get update  
 RUN apt-get install libssl-dev -y    
 
 RUN curl --silent --location --fail https://download2.rstudio.org/rstudio-server-1.1.419-amd64.deb > /tmp/rstudio.deb && \
