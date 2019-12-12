@@ -56,4 +56,52 @@ COPY 051-movie-explorer/ /home/jovyan/beispielsapp/
 
 #COPY shiny-server.conf /etc/shiny-server/
 
+#install mariadb
+
+
+
+
+
+
+
+
+
+#Install java & solr usr/
+RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
+Run apt-get update
+RUN apt-get install software-properties-common gnupg -y 
+Run apt install dirmngr net-tools nano -y
+RUN sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0xB1998361219BD9C9
+RUN echo "deb http://repos.azulsystems.com/debian stable main" | sudo tee /etc/apt/sources.list.d/zulu.list
+RUN apt-get update
+RUN apt -y install zulu-11
+RUN export JAVA_HOME=/usr/lib/jvm/zulu-11/
+RUN wget http://www-eu.apache.org/dist/lucene/solr/7.7.2/solr-7.7.2.tgz
+RUN tar xzf solr-7.7.2.tgz solr-7.7.2/bin/install_solr_service.sh --strip-components=2
+RUN  bash ./install_solr_service.sh solr-7.7.2.tgz
+ADD solr-1/logs /opt/logs
+ADD solr-1/store /store
+ADD solr-1/docker-entrypoint-initdb.d /docker-entrypoint-initdb.d
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 USER $NB_USER
