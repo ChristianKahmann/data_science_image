@@ -1,6 +1,7 @@
 FROM jupyter/datascience-notebook
 ENV DEBIAN_FRONTEND=noninteractive
 
+USER root
 # Set up locales properly
 RUN apt-get -qq update && \
 apt-get -qq install --yes --no-install-recommends locales > /dev/null && \
