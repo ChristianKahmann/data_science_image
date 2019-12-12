@@ -11,6 +11,7 @@ RUN apt-get update && \
     rm /tmp/rstudio.deb && \
     apt-get clean
     
+RUN apt-get install systemd    
 ENV PATH=$PATH:/usr/lib/rstudio-server/bin
 
 RUN curl --silent --location --fail https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.12.933-amd64.deb > /tmp/shiny.deb && \
