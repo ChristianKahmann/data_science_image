@@ -99,4 +99,6 @@ RUN conda install --quiet --yes \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
+RUN pip install jupyter-rsession-proxy
+
 RUN pip install --no-cache-dir nbgitpuller
