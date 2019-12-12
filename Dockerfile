@@ -13,8 +13,7 @@ RUN apt-get update && \
     
 ENV PATH=$PATH:/usr/lib/rstudio-server/bin
 
-RUN curl --silent --location --fail https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.7.907-amd64.deb > /tmp/shiny.deb && \
-echo '78371a8361ba0e7fec44edd2b8e425ac /tmp/shiny.deb' | md5sum -c - && \
+RUN curl --silent --location --fail https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.12.933-amd64.deb > /tmp/shiny.deb && \
 dpkg -i /tmp/shiny.deb && \
 rm /tmp/shiny.deb
 
