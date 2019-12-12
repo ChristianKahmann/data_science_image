@@ -30,7 +30,7 @@
 # sh /usr/bin/shiny-server.sh -D
 
 
-sh /opt/solr/bin/solr start -m 2g 
+/opt/solr/bin/solr start -m 2g 
 
-sh /opt/solr/bin/solr create_core -c iLCM -p 8983 -d /store/solr/config/iLCM
+/opt/solr/bin/solr create_core -c iLCM -p 8983 -d /store/solr/config/iLCM
 #CMD ["jupyter", "notebook", "--ip", "0.0.0.0"]
