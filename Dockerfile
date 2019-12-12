@@ -1,3 +1,4 @@
+FROM jupyter/datascience-notebook
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Set up locales properly
