@@ -111,6 +111,7 @@ RUN apt-get update && \
 		libssl1.0.0 \
 		;
 
+
 ENV RSTUDIO_PKG=rstudio-server-1.0.136-amd64.deb
 
 RUN wget -q http://download2.rstudio.org/${RSTUDIO_PKG}
@@ -131,4 +132,8 @@ jupyter nbextension enable --py jupyter_server_proxy --sys-prefix
 
 ENV PATH="${PATH}:/usr/lib/rstudio-server/bin"
 ENV LD_LIBRARY_PATH="/usr/lib/R/lib:/lib:/usr/lib/x86_64-linux-gnu:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server:/opt/conda/lib/R/lib"
+
+
+# Specify the default command to run
+CMD ["jupyter", "notebook", "--ip", "0.0.0.0"]
 
