@@ -5,14 +5,11 @@ RUN conda install -yq -c conda-forge nbrsessionproxy && \
 
 # install rstudio-server
 USER root
-RUN apt-get update && \
-    curl --silent -L --fail https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.2.5019-amd64.deb > /tmp/rstudio.deb && \
-    apt-get install -y /tmp/rstudio.deb && \
-    rm /tmp/rstudio.deb && \
-    apt-get clean
-    
-ENV PATH=$PATH:/usr/lib/rstudio-server/bin
 
+RUN curl --silent --location --fail https://download2.rstudio.org/rstudio-server-1.1.419-amd64.deb > /tmp/rstudio.deb && \
+echo '24cd11f0405d8372b4168fc9956e0386 /tmp/rstudio.deb' | md5sum -c - && \
+dpkg -i /tmp/rstudio.deb && \
+rm /tmp/rstudio.deb
 
 
 RUN curl --silent --location --fail https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.7.907-amd64.deb > /tmp/shiny.deb && \
@@ -71,7 +68,7 @@ RUN echo "options(repos = c(CRAN='https://mran.microsoft.com/snapshot/2019-04-10
 #USER ${NB_USER}
 #RUN Rscript install.R
 
-
+COPY shiny-server.conf /etc/shiny-server/
 # Container image Labels!
 # Put these at the end, since we don't want to rebuild everything
 # when these change! Did I mention I hate Dockerfile cache semantics?
