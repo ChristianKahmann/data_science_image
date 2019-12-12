@@ -57,7 +57,7 @@ ENV PATH ${HOME}/.local/bin:${REPO_DIR}/.local/bin:${PATH}
 # you can't actually copy as USER, only as root! Thanks, Docker!
 USER root
 #COPY src/ ${REPO_DIR}
-RUN chown -R ${NB_USER}:${NB_USER} ${REPO_DIR}
+#RUN chown -R ${NB_USER}:${NB_USER} ${REPO_DIR}
 
 # Run assemble scripts! These will actually build the specification
 # in the repository into the image.
