@@ -47,7 +47,7 @@ USER root
 
 RUN echo "options(repos = c(CRAN='https://mran.microsoft.com/snapshot/2019-04-10'), download.file.method = 'libcurl')" > /etc/R/Rprofile.site
 
-COPY 051-movie-explorer /home/jovyan/
+COPY 051-movie-explorer/ /home/jovyan/
 
 COPY shiny-server.conf /etc/shiny-server/
 
