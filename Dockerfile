@@ -99,6 +99,8 @@ RUN conda install --quiet --yes \
     fix-permissions $CONDA_DIR && \
     fix-permissions /home/$NB_USER
 
+RUN pip install --no-cache-dir nbgitpuller
+
 USER root
 RUN apt-get update && \
 	apt-get install -y --no-install-recommends \
@@ -123,4 +125,6 @@ USER $NB_USER
 
 RUN pip install git+https://github.com/jupyterhub/jupyter-rsession-proxy
 
-RUN pip install --no-cache-dir nbgitpuller
+ENV PATH="${PATH}:/usr/lib/rstudio-server/bin"
+ENV LD_LIBRARY_PATH="/usr/lib/R/lib:/lib:/usr/lib/x86_64-linux-gnu:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64/server:/opt/conda/lib/R/lib"
+
