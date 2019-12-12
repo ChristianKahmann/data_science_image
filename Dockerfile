@@ -14,12 +14,12 @@ RUN apt-get update && \
 RUN apt-get install systemd -y    
 ENV PATH=$PATH:/usr/lib/rstudio-server/bin
 
-RUN curl --silent --location --fail https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.12.933-amd64.deb > /tmp/shiny.deb && \
-dpkg -i /tmp/shiny.deb && \
-rm /tmp/shiny.deb
+#RUN curl --silent --location --fail https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.12.933-amd64.deb > /tmp/shiny.deb && \
+#dpkg -i /tmp/shiny.deb && \
+#rm /tmp/shiny.deb
 
-RUN sed -i -e '/^R_LIBS_USER=/s/^/#/' /etc/R/Renviron && \
-echo "R_LIBS_USER=${R_LIBS_USER}" >> /etc/R/Renviron
+#RUN sed -i -e '/^R_LIBS_USER=/s/^/#/' /etc/R/Renviron && \
+#echo "R_LIBS_USER=${R_LIBS_USER}" >> /etc/R/Renviron
 
 USER ${NB_USER}
 RUN pip install --no-cache-dir https://github.com/jupyterhub/jupyter-server-proxy/archive/7ac0125.zip && \
@@ -47,8 +47,8 @@ USER root
 
 RUN echo "options(repos = c(CRAN='https://mran.microsoft.com/snapshot/2019-04-10'), download.file.method = 'libcurl')" > /etc/R/Rprofile.site
 
-COPY 051-movie-explorer/ /home/jovyan/beispielsapp/
+#COPY 051-movie-explorer/ /home/jovyan/beispielsapp/
 
-COPY shiny-server.conf /etc/shiny-server/
+#COPY shiny-server.conf /etc/shiny-server/
 
 USER $NB_USER
