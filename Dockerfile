@@ -73,6 +73,6 @@ RUN Rscript install.R
 # Container image Labels!
 # Put these at the end, since we don't want to rebuild everything
 # when these change! Did I mention I hate Dockerfile cache semantics?
-v
+
 
 USER $NB_USER
