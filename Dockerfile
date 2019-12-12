@@ -13,7 +13,7 @@ RUN apt-get update && \
     
 ENV PATH=$PATH:/usr/lib/rstudio-server/bin
 
-RUN R -e "install.packages('shiny')"
+#RUN R -e "install.packages('shiny')"
 
 RUN apt-get install -y libcurl4-openssl-dev 
 RUN apt-get install -y libxml2-dev
