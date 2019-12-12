@@ -19,8 +19,8 @@ RUN apt-get install -y libcurl4-openssl-dev
 RUN apt-get install -y libxml2-dev
 RUN apt-get install -y gdebi-core
 RUN apt-get install -y libssl1.0.0
-#RUN wget http://download3.rstudio.org/ubuntu-12.04/x86_64/shiny-server-1.3.0.403-amd64.deb
-#RUN gdebi shiny-server-1.3.0.403-amd64.deb
-#RUN chmod -R 777 /srv
+RUN wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.12.933-amd64.deb
+RUN gdebi shiny-server-1.5.12.933-amd64.deb
+RUN chmod -R 777 /srv
 
 USER $NB_USER
