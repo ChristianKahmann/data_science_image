@@ -47,10 +47,10 @@ RUN chown -R ${NB_USER} ${REPO_DIR}
 
 RUN echo "options(repos = c(CRAN='https://mran.microsoft.com/snapshot/2019-04-10'), download.file.method = 'libcurl')" > /etc/R/Rprofile.site
 
-RUN install -o ${NB_USER} -g ${NB_USER} -d /var/log/shiny-server && \
-install -o ${NB_USER} -g ${NB_USER} -d /var/lib/shiny-server && \
-install -o ${NB_USER} -g ${NB_USER} /dev/null /var/log/shiny-server.log && \
-install -o ${NB_USER} -g ${NB_USER} /dev/null /var/run/shiny-server.pid
+#RUN install -o ${NB_USER} -g ${NB_USER} -d /var/log/shiny-server && \
+#install -o ${NB_USER} -g ${NB_USER} -d /var/lib/shiny-server && \
+#install -o ${NB_USER} -g ${NB_USER} /dev/null /var/log/shiny-server.log && \
+#install -o ${NB_USER} -g ${NB_USER} /dev/null /var/run/shiny-server.pid
 
 COPY 051-movie-explorer/ /home/jovyan/beispielsapp/
 
