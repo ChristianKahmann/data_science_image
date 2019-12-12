@@ -128,7 +128,7 @@ ENV USER ${NB_USER}
 ENV HOME /home/${NB_USER}
 
 
-RUN apt-get install gnupg -y
+RUN apt-get install gnupg2 -y
 
 RUN wget --quiet -O - https://deb.nodesource.com/gpgkey/nodesource.gpg.key |  apt-key add - && \
     DISTRO="bionic" && \
