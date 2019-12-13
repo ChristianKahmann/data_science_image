@@ -89,5 +89,5 @@ COPY docker-entrypoint.sh /
 
 USER $NB_USER
 
-CMD ["jupyter", "notebook", "--ip", "0.0.0.0"]
+#CMD ["jupyter", "notebook", "--ip", "0.0.0.0"]
 
