@@ -100,7 +100,7 @@ Run R -e "options(scipen=999)"
 #Run R -e "chooseCRANmirror(31,graphics=F);install.packages('')"
 
 
-
+COPY iLCM/ /
 
 
 
@@ -112,5 +112,5 @@ ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
 
 USER $NB_USER
 
-#CMD ["jupyter", "notebook", "--ip", "0.0.0.0"]
+
 
