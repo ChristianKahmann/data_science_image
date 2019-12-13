@@ -82,6 +82,28 @@ RUN chown -R jovyan /opt/solr/
 ####iLCM App + libraries install
 
 
+COPY iLCM/ /home/jovyan/
+COPY R_tmca_package-master /home/jovyan/
+
+
+Run apt-get update
+Run apt-get install -y --allow-unauthenticated libssl-dev mysql-client libcurl4-openssl-dev libxml2 libgsl-dev gsl-bin libxml2-dev libv8-dev libmariadbclient-dev
+Run apt-get install -y libpoppler-cpp-dev
+
+Run apt-get install -y tk
+Run R -e "install.packages(c('gsl','slam','Rcpp','topicmodels','tm','igraph','Matrix','readr','digest','htmltools','networkD3','stringdist','glue','jsonlite','plotly','httpuv','mime','shiny','shinythemes','Rtsne','leaps','party','stringi','backports','formattable','RMySQL','RMariaDB','base64enc','yaml','curl','data.table','RcppParallel','quanteda','RCurl'))"
+Run R -e "options(scipen=999)"
+
+
+RUN R -e "devtools::install('/home/jovyan/R_tmca_package-master/tmca.util')"
+
+
+
+
+
+
+
+
 
 
 COPY docker-entrypoint.sh /
