@@ -95,9 +95,9 @@ Run apt-get install -y tk
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages(c('gsl','slam','Rcpp','topicmodels','tm','igraph','Matrix','readr','digest','htmltools','networkD3','stringdist','glue','jsonlite','plotly','httpuv','mime','shiny','shinythemes','Rtsne','leaps','party','stringi','backports','formattable','RMySQL','RMariaDB','base64enc','yaml','curl','data.table','RcppParallel','quanteda','RCurl'))"
 Run R -e "options(scipen=999)"
 
+RUN R -e "devtools::install('/home/jovyan/R_tmca_package-master/tmca.util/')"
 
-RUN R -e "devtools::install('/home/jovyan/R_tmca_package-master/tmca.util')"
-
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('')"
 
 
 
