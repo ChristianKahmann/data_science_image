@@ -99,8 +99,9 @@ Run R -e "options(scipen=999)"
 
 #Run R -e "chooseCRANmirror(31,graphics=F);install.packages('')"
 
+COPY iLCM/ /home/jovyan/iLCM/
+RUN chown -R jovyan /home/jovyan/iLCM/
 
-COPY iLCM/ /
 
 
 
