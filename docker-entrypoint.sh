@@ -34,6 +34,7 @@
 
 #/opt/solr/bin/solr create_core -c iLCM -p 8983 -d /store/solr/config/iLCM &
 set -e
+/opt/solr/bin/solr start -m 2g 
 touch /home/jovyan/newfile2.txt
 
 exec "$@"
