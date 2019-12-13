@@ -52,10 +52,8 @@ install -o ${NB_USER} -d /var/lib/shiny-server && \
 install -o ${NB_USER}  /dev/null /var/log/shiny-server.log && \
 install -o ${NB_USER}  /dev/null /var/run/shiny-server.pid
 
-COPY 051-movie-explorer/ /home/jovyan/beispielsapp/
 
 #COPY shiny-server.conf /etc/shiny-server/
-
 #install mariadb
 
 
