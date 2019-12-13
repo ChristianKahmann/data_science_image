@@ -91,7 +91,7 @@ Run apt-get install -y --allow-unauthenticated libssl-dev mysql-client libcurl4-
 Run apt-get install -y libpoppler-cpp-dev
 
 Run apt-get install -y tk
-RUN R -e "chooseCRANmirror(31)"
+RUN R -e "chooseCRANmirror(31,graphics=F)"
 Run R -e "install.packages(c('gsl','slam','Rcpp','topicmodels','tm','igraph','Matrix','readr','digest','htmltools','networkD3','stringdist','glue','jsonlite','plotly','httpuv','mime','shiny','shinythemes','Rtsne','leaps','party','stringi','backports','formattable','RMySQL','RMariaDB','base64enc','yaml','curl','data.table','RcppParallel','quanteda','RCurl'))"
 Run R -e "options(scipen=999)"
 
