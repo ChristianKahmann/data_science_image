@@ -97,7 +97,8 @@ Run R -e "options(scipen=999)"
 
 #RUN R -e "devtools::install('/home/jovyan/R_tmca_package-master/tmca.util/')"
 
-#Run R -e "chooseCRANmirror(31,graphics=F);install.packages('')"
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinythemes')"
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('dashboardthemes')"
 
 COPY iLCM/ /home/jovyan/iLCM/
 RUN chown -R jovyan /home/jovyan/iLCM/
