@@ -81,8 +81,8 @@ RUN chown -R jovyan /opt/solr/
 
 ####iLCM App + libraries install
 
-
-#COPY iLCM/ /home/jovyan/iLCM/
+RUN mkdir /home/jovyan/iLCM/
+COPY iLCM/ /home/jovyan/iLCM
 COPY R_tmca_package-master /home/jovyan/
 
 
@@ -100,7 +100,7 @@ Run R -e "options(scipen=999)"
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinythemes')"
 #Run R -e "chooseCRANmirror(31,graphics=F);install.packages('dashboardthemes')"
 
-#RUN chown -R jovyan /home/jovyan/iLCM/
+RUN chown -R jovyan /home/jovyan/iLCM/
 
 
 
