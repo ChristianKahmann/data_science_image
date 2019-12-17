@@ -142,7 +142,7 @@ RUN apt-get update
 RUN apt-get install libnode-dev -y
 
 #RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('V8')"
-RUN R -e "options(unzip = 'internal');devtools::install_github('jeroen/v8',force=T)""
+RUN R -e "options(unzip = 'internal');devtools::install_github('jeroen/v8',force=T)"
 
 #RUN mkdir /opt/conda/lib/R/library/V8/
 #COPY V8/ /opt/conda/lib/R/library/V8
