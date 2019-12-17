@@ -120,10 +120,10 @@ Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinyWidgets')"
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('sparkline')"
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('visNetwork')"
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('wordcloud2')"
-
-
-
-
+Run R -e "devtools::install_github('nik01010/dashboardthemes')"
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('htmlwidgets')"
+RUN apt-get install libpoppler-cpp-dev -y 
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('readtext')"
 
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinythemes')"
 #Run R -e "chooseCRANmirror(31,graphics=F);install.packages('dashboardthemes')"
