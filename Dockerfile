@@ -101,7 +101,20 @@ RUN R -e "devtools::install('/home/jovyan/tmca.contextvolatility/')"
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('lda')"
 RUN R -e "devtools::install('/home/jovyan/tmca.unsupervised/')"
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinyFiles')"
-#RUN R -e 'chooseCRANmirror(31,graphics=F);install.packages(c("bsplus", "cleanNLP", "colourpicker", "d3heatmap", "DT", "future", "LDAvis", "readtext", "rhandsontable", "shinyAce", "shinyBS", #"shinycssloaders", "shinydashboard", "shinyFiles", "shinyjqui", "shinyjs", "shinyWidgets", "sparkline", "visNetwork", "wordcloud2"))'
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('bsplus')"
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('cleanNLP')"
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('colourpicker')"
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('d3heatmap')"
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('future')"
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('LDAvis')"
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('readtext')"
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('rhandsontable')"
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinyAce')"
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinyBS')"
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinycssloaders')"
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinydashboard')"
+
+#RUN R -e 'chooseCRANmirror(31,graphics=F);install.packages(c("", "cleanNLP", "colourpicker", "", "DT", "future", "LDAvis", "readtext", "rhandsontable", "shinyAce", "shinyBS", #"shinycssloaders", "shinydashboard", "shinyFiles", "shinyjqui", "shinyjs", "shinyWidgets", "sparkline", "visNetwork", "wordcloud2"))'
 
 
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinythemes')"
