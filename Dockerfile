@@ -120,14 +120,15 @@ Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinyWidgets')"
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('sparkline')"
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('visNetwork')"
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('wordcloud2')"
+RUN apt-get install pkg-config -y
 Run R -e "devtools::install_github('nik01010/dashboardthemes')"
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('htmlwidgets')"
 RUN apt-get install libpoppler-cpp-dev -y 
-RUN apt-get install pkf-config -y
+
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('readtext')"
 
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinythemes')"
-#Run R -e "chooseCRANmirror(31,graphics=F);install.packages('dashboardthemes')"
+
 
 RUN chown -R jovyan /home/jovyan/iLCM/
 
