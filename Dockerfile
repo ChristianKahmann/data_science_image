@@ -136,8 +136,10 @@ Run R -e "options(unzip = 'internal');devtools::install_github('AnalytixWare/Shi
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('wordcloud')"
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('sodium')"
 
-RUN mkdir /opt/conda/lib/R/library/V8/
-COPY V8/ /opt/conda/lib/R/library/V8
+RUN apt-get install libv8-3.14-dev -y 
+RUN R -e "install.packages("V8")"
+#RUN mkdir /opt/conda/lib/R/library/V8/
+#COPY V8/ /opt/conda/lib/R/library/V8
 
 
 
