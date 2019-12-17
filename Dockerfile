@@ -113,8 +113,16 @@ Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinyAce')"
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinyBS')"
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinycssloaders')"
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinydashboard')"
+RUN R -e "install.packages('https://cran.r-project.org/src/contrib/Archive/DT/DT_0.2.tar.gz', repos=NULL, type="source")"
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinyjqui')"
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinyjs')"
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinyWidgets')"
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('sparkline')"
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('visNetwork')"
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('wordcloud2')"
 
-#RUN R -e 'chooseCRANmirror(31,graphics=F);install.packages(c("", "cleanNLP", "colourpicker", "", "DT", "future", "LDAvis", "readtext", "rhandsontable", "shinyAce", "shinyBS", #"shinycssloaders", "shinydashboard", "shinyFiles", "shinyjqui", "shinyjs", "shinyWidgets", "sparkline", "visNetwork", "wordcloud2"))'
+
+
 
 
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinythemes')"
