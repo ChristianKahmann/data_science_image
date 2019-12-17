@@ -125,7 +125,9 @@ Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinythemes')"
 RUN add-apt-repository -y ppa:cran/poppler
 RUN apt-get update
 RUN sudo apt-get install -y libpoppler-cpp-dev
-Run R -e "options(unzip = 'internal');devtools::install_github('ropensci/pdftools')"
+
+RUN mkdir /opt/conda/lib/R/library/pdftools/
+COPY pdftools/ /opt/conda/lib/R/library/pdftools
 
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('readtext')"
 
