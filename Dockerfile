@@ -120,7 +120,7 @@ Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinyWidgets')"
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('sparkline')"
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('visNetwork')"
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('wordcloud2')"
-RUN R -e apt-get install libapparmor-dev -y
+RUN apt-get install libapparmor-dev -y
 
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('htmlwidgets')"
 RUN apt-get install libpoppler-cpp-dev -y 
