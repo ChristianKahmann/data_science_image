@@ -125,11 +125,12 @@ Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinythemes')"
 RUN add-apt-repository -y ppa:cran/poppler
 RUN apt-get update
 RUN sudo apt-get install -y libpoppler-cpp-dev
+Run R -e "options(unzip = 'internal');devtools::install_github('ropensci/pdftools')"
 
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('readtext')"
 
 
-Run R -e "options(unzip = "internal");devtools::install_github('nik01010/dashboardthemes')"
+Run R -e "options(unzip = 'internal');devtools::install_github('nik01010/dashboardthemes')"
 
 RUN chown -R jovyan /home/jovyan/iLCM/
 
