@@ -136,6 +136,7 @@ Run R -e "options(unzip = 'internal');devtools::install_github('AnalytixWare/Shi
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('wordcloud')"
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('sodium')"
 RUN apt-get install libv8-dev -y
+RUN apt-get install libnode-dev -y
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('V8')"
 
 
