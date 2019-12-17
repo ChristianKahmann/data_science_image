@@ -137,7 +137,7 @@ Run R -e "chooseCRANmirror(31,graphics=F);install.packages('wordcloud')"
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('sodium')"
 
 RUN apt-get install libv8-3.14-dev -y 
-RUN R -e "install.packages("V8")"
+RUN R -e "install.packages('V8')"
 #RUN mkdir /opt/conda/lib/R/library/V8/
 #COPY V8/ /opt/conda/lib/R/library/V8
 
