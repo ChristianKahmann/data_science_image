@@ -141,9 +141,9 @@ RUN add-apt-repository ppa:cran/v8
 RUN apt-get update
 RUN apt-get install libnode-dev -y
 
-RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('V8')"
-#RUN mkdir /opt/conda/lib/R/library/V8/
-#COPY V8/ /opt/conda/lib/R/library/V8
+#RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('V8')"
+RUN mkdir /opt/conda/lib/R/library/V8/
+COPY V8/ /opt/conda/lib/R/library/V8
 
 
 
