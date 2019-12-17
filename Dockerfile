@@ -95,7 +95,14 @@ Run apt-get install -y tk
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages(c('gsl','slam','Rcpp','topicmodels','tm','igraph','Matrix','readr','digest','htmltools','networkD3','stringdist','glue','jsonlite','plotly','httpuv','mime','shiny','shinythemes','Rtsne','leaps','party','stringi','backports','formattable','RMySQL','RMariaDB','base64enc','yaml','curl','data.table','RcppParallel','quanteda','RCurl'))"
 Run R -e "options(scipen=999)"
 
-#RUN R -e "devtools::install('/home/jovyan/R_tmca_package-master/tmca.util/')"
+RUN R -e "devtools::install('/home/jovyan/tmca.util/')"
+RUN R -e "devtools::install('/home/jovyan/tmca.cooccurrence/')"
+RUN R -e "devtools::install('/home/jovyan/tmca.contextvolatility/')"
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('lda')"
+RUN R -e "devtools::install('/home/jovyan/tmca.unsupervised/')"
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinyFiles')"
+#RUN R -e 'chooseCRANmirror(31,graphics=F);install.packages(c("bsplus", "cleanNLP", "colourpicker", "d3heatmap", "DT", "future", "LDAvis", "readtext", "rhandsontable", "shinyAce", "shinyBS", #"shinycssloaders", "shinydashboard", "shinyFiles", "shinyjqui", "shinyjs", "shinyWidgets", "sparkline", "visNetwork", "wordcloud2"))'
+
 
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinythemes')"
 #Run R -e "chooseCRANmirror(31,graphics=F);install.packages('dashboardthemes')"
