@@ -151,9 +151,8 @@ Run R -e "chooseCRANmirror(31,graphics=F);install.packages('sodium')"
 RUN apt-get install libcurl4-openssl-dev
 RUN apt autoremove -y 
 RUN apt install r-cran-curl
-#RUN apt-get install libv8-3.14-dev -y 
+RUN apt-get install libv8-3.14.5 -y 
 
-RUN apt-get install libv8-dev -y
 
 RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('V8')"
 #RUN R -e "Sys.setenv(TAR = '/bin/tar');options(unzip = 'internal');devtools::install_github('jeroen/v8',force=T)"
