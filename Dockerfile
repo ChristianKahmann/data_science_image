@@ -139,26 +139,18 @@ Run R -e "chooseCRANmirror(31,graphics=F);install.packages('sodium')"
 RUN export TAR="/bin/tar"
 
 RUN apt autoremove -y 
-RUN apt install r-cran-curl -y
-RUN apt install r-cran-knitr -y
-RUN apt install r-cran-testthat -y 
-RUN apt install r-cran-jsonlite -y 
-RUN apt install r-cran-jsonlite -y 
-RUN apt install r-cran-httpuv -y 
+RUN apt install -y r-cran-curl r-cran-knitr r-cran-testthat r-cran-jsonlite r-cran-jsonlite r-cran-httpuv
 
 RUN conda install -c conda-forge libv8
 RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('V8')"
-#RUN apt-get install libcurl4-openssl-dev -y
-#RUN apt-get install libcurl4-openssl-dev libssl-dev -y
-#RUN cp -r /usr/lib/x86_64-linux-gnu/pkgconfig/ /usr/lib/pkgconfig/
-#RUN R -e "Sys.setenv(TAR = '/bin/tar');options(unzip = 'internal');devtools::install_github('jeroen/v8',force=T)"
+
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('Matrix');install.packages('igraph');install.packages('networkD3');install.packages('slam');install.packages('tm');install.packages('diffr');options(unzip = 'internal');devtools::install_github('ThomasSiegmund/shinyTypeahead')"
 
 
 RUN chown -R jovyan /home/jovyan/iLCM/
 
-RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 USER jovyan
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 RUN bash Miniconda3-latest-Linux-x86_64.sh -b
 ENV PATH /home/jovyan/miniconda3/bin:$PATH
 RUN conda update -y conda \
@@ -167,6 +159,7 @@ RUN conda update -y conda \
     && python -m spacy download en
 COPY .profile /home/jovyan/.profile
 
+USER root
 
 
 
