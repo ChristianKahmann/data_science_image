@@ -155,6 +155,9 @@ RUN apt-get install libv8-3.14-dev -y
 
 
 RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('V8')"
+RUN apt-get install libcurl4-openssl-dev libssl-dev -y
+RUN apt-get -y build-dep libcurl4-gnutls-dev
+RUN apt-get -y install libcurl4-gnutls-dev
 RUN R -e "Sys.setenv(TAR = '/bin/tar');options(unzip = 'internal');devtools::install_github('jeroen/v8',force=T)"
 
 #RUN mkdir /opt/conda/lib/R/library/V8/
