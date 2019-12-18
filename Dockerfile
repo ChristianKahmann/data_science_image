@@ -137,8 +137,8 @@ Run R -e "chooseCRANmirror(31,graphics=F);install.packages('wordcloud')"
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('sodium')"
 
 #RUN apt-get install libv8-3.14-dev -y 
-RUN add-apt-repository ppa:cran/v8
-RUN apt-get update
+#RUN add-apt-repository ppa:cran/v8
+#RUN apt-get update
 #RUN apt-get install libnode-dev -y
 
 RUN apt-get download libnode-dev -y
@@ -151,8 +151,10 @@ RUN dpkg -i /home/jovyan/libnode-dev_10.15.2~dfsg-bionic0_amd64.deb
 RUN apt-get install libcurl4-openssl-dev
 RUN apt autoremove -y 
 RUN apt install r-cran-curl
-RUN apt-get install libv8-3.14-dev -y 
+#RUN apt-get install libv8-3.14-dev -y 
+
 RUN apt-get install libv8-dev -y
+RUN sudo aptitude install libv8-dev -y
 RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('V8')"
 #RUN R -e "Sys.setenv(TAR = '/bin/tar');options(unzip = 'internal');devtools::install_github('jeroen/v8',force=T)"
 
