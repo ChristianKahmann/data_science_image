@@ -152,23 +152,19 @@ RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('V8')"
 #RUN apt-get install libcurl4-openssl-dev libssl-dev -y
 #RUN cp -r /usr/lib/x86_64-linux-gnu/pkgconfig/ /usr/lib/pkgconfig/
 #RUN R -e "Sys.setenv(TAR = '/bin/tar');options(unzip = 'internal');devtools::install_github('jeroen/v8',force=T)"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('Matrix')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('igraph')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('networkD3')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('slam')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('tm')"
-Run R -e "options(unzip = 'internal');devtools::install_github('ThomasSiegmund/shinyTypeahead')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('diffr')"
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('Matrix');install.packages('igraph');install.packages('networkD3');install.packages('slam');install.packages('tm');install.packages('diffr');options(unzip = 'internal');devtools::install_github('ThomasSiegmund/shinyTypeahead')"
+
+
 RUN chown -R jovyan /home/jovyan/iLCM/
 
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 USER jovyan
 RUN bash Miniconda3-latest-Linux-x86_64.sh -b
 ENV PATH /home/jovyan/miniconda3/bin:$PATH
-RUN conda update -y conda
-RUN conda install -y spacy
-Run python -m spacy download de
-Run python -m spacy download en
+RUN conda update -y conda \
+    && conda install -y spacy \
+    && python -m spacy download de \
+    && python -m spacy download en
 COPY .profile /home/jovyan/.profile
 
 
