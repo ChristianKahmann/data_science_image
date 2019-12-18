@@ -150,7 +150,8 @@ RUN dpkg -i /home/jovyan/libnode-dev_10.15.2~dfsg-bionic0_amd64.deb
 #RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('V8')"
 RUN apt-get install libcurl4-openssl-dev
 RUN apt autoremove -y 
-RUN R -e "Sys.setenv(TAR = '/bin/tar');options(unzip = 'internal');devtools::install_github('jeroen/v8',force=T)"
+RUN apt install r-cran-curl
+#RUN R -e "Sys.setenv(TAR = '/bin/tar');options(unzip = 'internal');devtools::install_github('jeroen/v8',force=T)"
 
 #RUN mkdir /opt/conda/lib/R/library/V8/
 #COPY V8/ /opt/conda/lib/R/library/V8
@@ -166,7 +167,7 @@ RUN chown -R jovyan /home/jovyan/iLCM/
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
 
-USER $NB_USER
+#USER $NB_USER
 
 
 
