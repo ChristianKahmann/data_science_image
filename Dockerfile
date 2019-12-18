@@ -139,12 +139,12 @@ Run R -e "chooseCRANmirror(31,graphics=F);install.packages('sodium')"
 RUN export TAR="/bin/tar"
 
 RUN apt autoremove -y 
-RUN apt install r-cran-curl
-RUN apt install r-cran-knitr
-RUN apt install r-cran-testthat
-RUN apt install r-cran-jsonlite
-RUN apt install r-cran-jsonlite
-RUN apt install r-cran-httpuv
+RUN apt install r-cran-curl -y
+RUN apt install r-cran-knitr -y
+RUN apt install r-cran-testthat -y 
+RUN apt install r-cran-jsonlite -y 
+RUN apt install r-cran-jsonlite -y 
+RUN apt install r-cran-httpuv -y 
 
 RUN conda install -c conda-forge libv8
 RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('V8')"
