@@ -136,29 +136,23 @@ Run R -e "options(unzip = 'internal');devtools::install_github('AnalytixWare/Shi
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('wordcloud')"
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('sodium')"
 
-
-
-
 RUN export TAR="/bin/tar"
 
-
-
-RUN apt-get install libcurl4-openssl-dev
 RUN apt autoremove -y 
 RUN apt install r-cran-curl
-
-
+RUN apt install r-cran-knitr
+RUN apt install r-cran-testthat
+RUN apt install r-cran-jsonlite
+RUN apt install r-cran-jsonlite
+RUN apt install r-cran-httpuv
 
 RUN conda install -c conda-forge libv8
 RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('V8')"
-RUN apt-get install libcurl4-openssl-dev -y
-RUN apt-get install libcurl4-openssl-dev libssl-dev -y
-RUN cp -r /usr/lib/x86_64-linux-gnu/pkgconfig/ /usr/lib/pkgconfig/
-
-RUN R -e "Sys.setenv(TAR = '/bin/tar');options(unzip = 'internal');devtools::install_github('jeroen/v8',force=T)"
-
-#RUN mkdir /opt/conda/lib/R/library/V8/
-#COPY V8/ /opt/conda/lib/R/library/V8
+#RUN apt-get install libcurl4-openssl-dev -y
+#RUN apt-get install libcurl4-openssl-dev libssl-dev -y
+#RUN cp -r /usr/lib/x86_64-linux-gnu/pkgconfig/ /usr/lib/pkgconfig/
+#RUN R -e "Sys.setenv(TAR = '/bin/tar');options(unzip = 'internal');devtools::install_github('jeroen/v8',force=T)"
+Run R -e "chooseCRANmirror(31,graphics=F);install.packages('Matrix')"
 
 
 
