@@ -155,10 +155,10 @@ RUN bash Miniconda3-latest-Linux-x86_64.sh -b
 USER root
 #ENV PATH /home/jovyan/miniconda3/bin:$PATH
 # conda update -y conda \
-RUN conda install -y spacy \
-    && python -m spacy download de \
-    && python -m spacy download en
-COPY .profile /home/jovyan/.profile
+#RUN conda install -y spacy \
+#    && python -m spacy download de \
+#    && python -m spacy download en
+#COPY .profile /home/jovyan/.profile
 
 USER root
 
