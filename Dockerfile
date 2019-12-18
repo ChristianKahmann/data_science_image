@@ -153,9 +153,9 @@ RUN apt install r-cran-curl
 
 RUN apt-get install libv8-3.14-dev -y 
 
-
+RUN conda install -c conda-forge libv8
 RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('V8')"
-RUN R apt-get isntall libcurl4-openssl-dev -y
+RUN apt-get install libcurl4-openssl-dev -y
 RUN apt-get install libcurl4-openssl-dev libssl-dev -y
 RUN cp -r /usr/lib/x86_64-linux-gnu/pkgconfig/ /usr/lib/pkgconfig/
 
