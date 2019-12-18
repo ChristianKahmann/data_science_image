@@ -143,13 +143,13 @@ RUN apt install -y r-cran-curl r-cran-knitr r-cran-testthat r-cran-jsonlite r-cr
 
 RUN conda install -c conda-forge libv8
 RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('V8')"
-
+RUN chown -R jovyan /home/jovyan/iLCM/
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('Matrix');install.packages('igraph');install.packages('networkD3');install.packages('slam');install.packages('tm');install.packages('diffr');options(unzip = 'internal');devtools::install_github('ThomasSiegmund/shinyTypeahead')"
 
 
-RUN chown -R jovyan /home/jovyan/iLCM/
 
-USER jovyan
+
+USER $NB_USER
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 RUN bash Miniconda3-latest-Linux-x86_64.sh -b
 ENV PATH /home/jovyan/miniconda3/bin:$PATH
