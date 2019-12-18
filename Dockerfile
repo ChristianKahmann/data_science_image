@@ -156,6 +156,7 @@ RUN apt-get install libv8-3.14-dev -y
 
 RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('V8')"
 RUN apt-get install libcurl4-openssl-dev libssl-dev -y
+RUN cp -r /usr/lib/x86_64-linux-gnu/pkgconfig/* /usr/lib/pkgconfig/
 
 RUN R -e "Sys.setenv(TAR = '/bin/tar');options(unzip = 'internal');devtools::install_github('jeroen/v8',force=T)"
 
