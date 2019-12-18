@@ -144,7 +144,7 @@ RUN apt-get install libnode-dev -y
 
 
 RUN export TAR="/bin/tar"
-RUN dpkg -i /home/jovyan/libnode-dev_10.15.2~dfsg-bionic0_amd64.deb
+
 
 
 RUN apt-get install libcurl4-openssl-dev
