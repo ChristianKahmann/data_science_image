@@ -135,12 +135,8 @@ Run R -e "options(unzip = 'internal');devtools::install_github('cran/solr')"
 Run R -e "options(unzip = 'internal');devtools::install_github('AnalytixWare/ShinySky')"
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('wordcloud')"
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('sodium')"
-RUN apt-get remove r-base-dev -y
-RUN apt-get install r-base-dev -f -y
-#RUN apt-get install libv8-3.14-dev -y 
-RUN add-apt-repository ppa:cran/v8
-RUN apt-get update
-RUN apt-get install libnode-dev -y
+
+
 
 
 RUN export TAR="/bin/tar"
@@ -151,7 +147,7 @@ RUN apt-get install libcurl4-openssl-dev
 RUN apt autoremove -y 
 RUN apt install r-cran-curl
 
-RUN apt-get install libv8-3.14-dev -y 
+
 
 RUN conda install -c conda-forge libv8
 RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('V8')"
