@@ -111,7 +111,7 @@ CREATE TABLE `metadata_names` (
 
 CREATE TABLE `meta_mde1` (
   `dataset` varchar(50) NOT NULL,
-  `mde1` varchar(500) NOT NULL,
+  `mde1` varchar(100) NOT NULL,
   PRIMARY KEY (`dataset`,`mde1`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
