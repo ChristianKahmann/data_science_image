@@ -95,37 +95,13 @@ Run apt-get install -y tk
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages(c('gsl','slam','Rcpp','topicmodels','tm','igraph','Matrix','readr','digest','htmltools','networkD3','stringdist','glue','jsonlite','plotly','httpuv','mime','shiny','shinythemes','Rtsne','leaps','party','stringi','backports','formattable','RMySQL','RMariaDB','base64enc','yaml','curl','data.table','RcppParallel','quanteda','RCurl'))"
 Run R -e "options(scipen=999)"
 
-RUN R -e "devtools::install('/home/jovyan/tmca.util/')"
-RUN R -e "devtools::install('/home/jovyan/tmca.cooccurrence/')"
-RUN R -e "devtools::install('/home/jovyan/tmca.contextvolatility/')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('lda')"
-RUN R -e "devtools::install('/home/jovyan/tmca.unsupervised/')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinyFiles')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('bsplus')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('cleanNLP')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('colourpicker')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('d3heatmap')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('future')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('LDAvis')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('readtext')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('rhandsontable')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinyAce')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinyBS')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinycssloaders')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinydashboard')"
-RUN R -e "install.packages('https://cran.r-project.org/src/contrib/Archive/DT/DT_0.2.tar.gz', repos=NULL, type='source')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinyjqui')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinyjs')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinyWidgets')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('sparkline')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('visNetwork')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('wordcloud2')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('htmlwidgets')"
-Run R -e "chooseCRANmirror(31,graphics=F);install.packages('shinythemes')"
-RUN add-apt-repository -y ppa:cran/poppler
-RUN apt-get update
-RUN sudo apt-get install -y libpoppler-cpp-dev
-RUN mkdir /opt/conda/lib/R/library/pdftools/
+RUN R -e "chooseCRANmirror(31,graphics=F);devtools::install('/home/jovyan/tmca.util/');devtools::install('/home/jovyan/tmca.cooccurrence/');devtools::install('/home/jovyan/tmca.contextvolatility/');install.packages('lda');devtools::install('/home/jovyan/tmca.unsupervised/');install.packages('shinyFiles');install.packages('bsplus');install.packages('cleanNLP');install.packages('colourpicker');install.packages('d3heatmap');install.packages('future');install.packages('LDAvis');install.packages('readtext');install.packages('rhandsontable');install.packages('shinyAce');install.packages('shinyBS');install.packages('shinycssloaders');install.packages('shinydashboard');install.packages('https://cran.r-project.org/src/contrib/Archive/DT/DT_0.2.tar.gz', repos=NULL, type='source');install.packages('shinyjqui');install.packages('shinyjs');install.packages('shinyWidgets');install.packages('sparkline');install.packages('visNetwork');install.packages('wordcloud2');install.packages('htmlwidgets');install.packages('shinythemes')"
+
+
+RUN add-apt-repository -y ppa:cran/poppler \
+    && apt-get update \
+    && apt-get install -y libpoppler-cpp-dev \
+    && mkdir /opt/conda/lib/R/library/pdftools/
 COPY pdftools/ /opt/conda/lib/R/library/pdftools
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages('readtext')"
 Run R -e "options(unzip = 'internal');devtools::install_github('nik01010/dashboardthemes')"
@@ -161,7 +137,6 @@ USER root
 
 
 #install mariadb
-#RUN apt-key adv --recv-keys --keyserver keyserver.ubuntu.com F1656F24C74CD1D8
 RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
 RUN add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://mirror.zol.co.zw/mariadb/repo/10.2/debian stretch main'
 
