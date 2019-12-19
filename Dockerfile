@@ -161,7 +161,7 @@ USER root
 
 
 #install mariadb
-#RUN apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xF1656F24C74CD1D8
+RUN apt-key adv --recv-keys --keyserver keyserver.ubuntu.com F1656F24C74CD1D8
 RUN add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://mirror.zol.co.zw/mariadb/repo/10.2/debian stretch main'
 
 Run apt-get update
