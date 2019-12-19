@@ -150,14 +150,15 @@ Run R -e "chooseCRANmirror(31,graphics=F);install.packages('Matrix');install.pac
 
 
 USER $NB_USER
-RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-RUN bash Miniconda3-latest-Linux-x86_64.sh -b
-ENV PATH /home/jovyan/miniconda3/bin:$PATH
+#RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+#RUN bash Miniconda3-latest-Linux-x86_64.sh -b
+#ENV PATH /home/jovyan/miniconda3/bin:$PATH
 RUN conda update -y conda \
     && conda install -y spacy \
     && python -m spacy download de \
     && python -m spacy download en
 COPY .profile /home/jovyan/.profile
+RUN chown -R jovyan /opt/conda/
 
 USER root
 
