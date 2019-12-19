@@ -117,49 +117,49 @@ CREATE TABLE `meta_mde1` (
 
 CREATE TABLE `meta_mde2` (
   `dataset` varchar(50) NOT NULL,
-  `mde2` varchar(500) NOT NULL,
+  `mde2` varchar(100) NOT NULL,
   PRIMARY KEY (`dataset`,`mde2`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `meta_mde3` (
   `dataset` varchar(50) NOT NULL,
-  `mde3` varchar(500) NOT NULL,
+  `mde3` varchar(100) NOT NULL,
   PRIMARY KEY (`dataset`,`mde3`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `meta_mde4` (
   `dataset` varchar(50) NOT NULL,
-  `mde4` varchar(500) NOT NULL,
+  `mde4` varchar(100) NOT NULL,
   PRIMARY KEY (`dataset`,`mde4`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `meta_mde5` (
   `dataset` varchar(50) NOT NULL,
-  `mde5` varchar(500) NOT NULL,
+  `mde5` varchar(100) NOT NULL,
   PRIMARY KEY (`dataset`,`mde5`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `meta_mde6` (
   `dataset` varchar(50) NOT NULL,
-  `mde6` varchar(500) NOT NULL,
+  `mde6` varchar(100) NOT NULL,
   PRIMARY KEY (`dataset`,`mde6`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `meta_mde7` (
   `dataset` varchar(50) NOT NULL,
-  `mde7` varchar(500) NOT NULL,
+  `mde7` varchar(100) NOT NULL,
   PRIMARY KEY (`dataset`,`mde7`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `meta_mde8` (
   `dataset` varchar(50) NOT NULL,
-  `mde8` varchar(500) NOT NULL,
+  `mde8` varchar(100) NOT NULL,
   PRIMARY KEY (`dataset`,`mde8`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `meta_mde9` (
   `dataset` varchar(50) NOT NULL,
-  `mde9` varchar(500) NOT NULL,
+  `mde9` varchar(100) NOT NULL,
   PRIMARY KEY (`dataset`,`mde9`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
