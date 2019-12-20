@@ -149,7 +149,7 @@ USER root
 
 #RUN apt install mariadb-server -y
 RUN useradd -m ilcm_super && echo "ilcm_super:ilcm" | chpasswd && adduser ilcm_super sudo
-RUN mysql -V
+#RUN mysql -V
 
 
 
