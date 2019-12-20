@@ -134,7 +134,7 @@ COPY .profile /home/jovyan/.profile
 RUN chown -R jovyan /opt/conda/
 
 USER root
-
+USER root
 
 #install mariadb
 RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
@@ -152,12 +152,12 @@ Run DEBIAN_FRONTEND=noninteractive apt-get install --allow-unauthenticated -y ma
 ADD init_iLCM.sql /tmp/init_iLCM.sql
 RUN rm /etc/mysql/my.cnf
 COPY my.cnf /etc/mysql/my.cnf
-RUN test -d /var/run/mariadb || mkdir /var/run/mariadb; \
-    chmod 0777 /var/run/mariadb; \
-    /usr/bin/mysqld_safe --basedir=/usr & \
-    sleep 10s && \
-    mysql --user=root --password=ilcm < /tmp/init_iLCM.sql && \
-    mysqladmin shutdown --password=ilcm
+#RUN test -d /var/run/mariadb || mkdir /var/run/mariadb; \
+#    chmod 0777 /var/run/mariadb; \
+#    /usr/bin/mysqld_safe --basedir=/usr & \
+#    sleep 10s && \
+#    mysql --user=root --password=ilcm < /tmp/init_iLCM.sql && \
+#    mysqladmin shutdown --password=ilcm
 
 
 
