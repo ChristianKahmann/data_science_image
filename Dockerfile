@@ -146,8 +146,8 @@ RUN ["/bin/bash", "-c", "debconf-set-selections <<< 'mariadb-server-10.2 mysql-s
 RUN apt purge -y mysql*
 Run apt-get update
 RUN echo $PATH
-Run DEBIAN_FRONTEND=noninteractive apt-get install --allow-unauthenticated -y mariadb-server 
-#Run DEBIAN_FRONTEND=noninteractive apt-get install --allow-unauthenticated -y mariadb-server galera mariadb-client libmariadb3 
+#Run DEBIAN_FRONTEND=noninteractive apt-get install --allow-unauthenticated -y mariadb-server 
+Run DEBIAN_FRONTEND=noninteractive apt-get install --allow-unauthenticated -y mariadb-server galera mariadb-client libmariadb3 
 
 #ADD init_iLCM.sql /tmp/init_iLCM.sql
 #RUN rm /etc/mysql/my.cnf
