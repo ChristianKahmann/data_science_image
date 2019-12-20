@@ -151,7 +151,7 @@ USER root
 RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
 Run apt-get update
 RUN apt-get install software-properties-common gnupg -y 
-RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com 0xF1656F24C74CD1D8
+RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
 Run add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://ftp.hosteurope.de/mirror/mariadb.org/repo/10.3/ubuntu bionic main'
 Run apt-get update
 RUN ["/bin/bash", "-c", "debconf-set-selections <<< 'mariadb-server-10.3 mysql-server/root_password password ilcm'"]
