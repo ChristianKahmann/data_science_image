@@ -147,10 +147,17 @@ USER root
 #Run DEBIAN_FRONTEND=noninteractive apt-get install --allow-unauthenticated -y mariadb-server 
 #Run DEBIAN_FRONTEND=noninteractive apt-get install --allow-unauthenticated -y mariadb-server galera mariadb-client libmariadb3 
 
-#RUN apt install mariadb-server -y
-RUN useradd -m ilcm_super && echo "ilcm_super:ilcm" | chpasswd && adduser ilcm_super sudo
-RUN useradd -m christian2 && echo "christian2:christian" | chpasswd 
-#RUN mysql -V
+
+RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
+Run apt-get update
+RUN apt-get install software-properties-common gnupg -y 
+RUN apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 0xF1656F24C74CD1D8
+Run add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://ftp.hosteurope.de/mirror/mariadb.org/repo/10.3/ubuntu bionic main'
+Run apt-get update
+RUN ["/bin/bash", "-c", "debconf-set-selections <<< 'mariadb-server-10.3 mysql-server/root_password password ilcm'"]
+RUN ["/bin/bash", "-c", "debconf-set-selections <<< 'mariadb-server-10.3 mysql-server/root_password_again password ilcm'"]
+Run DEBIAN_FRONTEND=noninteractive apt-get install --allow-unauthenticated -y net-tools mariadb-server libmariadbclient18 nano dirmngr
+ADD init_iLCM.sql /tmp/init_iLCM.sql
 
 
 
