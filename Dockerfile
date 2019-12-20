@@ -139,9 +139,9 @@ USER root
 RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
 RUN add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://mirror.zol.co.zw/mariadb/repo/10.2/debian stretch main'
 
-#Run apt-get update
-#RUN ["/bin/bash", "-c", "debconf-set-selections <<< 'mariadb-server-10.2 mysql-server/root_password password ilcm'"]
-#RUN ["/bin/bash", "-c", "debconf-set-selections <<< 'mariadb-server-10.2 mysql-server/root_password_again password ilcm'"]
+Run apt-get update
+RUN ["/bin/bash", "-c", "debconf-set-selections <<< 'mariadb-server-10.2 mysql-server/root_password password ilcm'"]
+RUN ["/bin/bash", "-c", "debconf-set-selections <<< 'mariadb-server-10.2 mysql-server/root_password_again password ilcm'"]
 
 #RUN apt purge -y mysql*
 #Run apt-get update
