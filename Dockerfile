@@ -143,8 +143,8 @@ Run apt-get update
 RUN ["/bin/bash", "-c", "debconf-set-selections <<< 'mariadb-server-10.2 mysql-server/root_password password ilcm'"]
 RUN ["/bin/bash", "-c", "debconf-set-selections <<< 'mariadb-server-10.2 mysql-server/root_password_again password ilcm'"]
 
-#RUN apt purge -y mysql*
-#Run apt-get update
+RUN apt purge -y mysql*
+Run apt-get update
 #Run DEBIAN_FRONTEND=noninteractive apt-get install --allow-unauthenticated -y mariadb-server 
 #Run DEBIAN_FRONTEND=noninteractive apt-get install --allow-unauthenticated -y mariadb-server galera mariadb-client libmariadb3 
 
