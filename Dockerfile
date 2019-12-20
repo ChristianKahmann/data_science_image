@@ -136,18 +136,21 @@ RUN chown -R jovyan /opt/conda/
 USER root
 
 #install mariadb
-RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-RUN add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://mirror.zol.co.zw/mariadb/repo/10.2/debian stretch main'
-
-Run apt-get update
-RUN ["/bin/bash", "-c", "debconf-set-selections <<< 'mariadb-server-10.2 mysql-server/root_password password ilcm'"]
-RUN ["/bin/bash", "-c", "debconf-set-selections <<< 'mariadb-server-10.2 mysql-server/root_password_again password ilcm'"]
-
-RUN apt purge -y mysql*
-Run apt-get update
-RUN echo $PATH
+#RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
+#RUN add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://mirror.zol.co.zw/mariadb/repo/10.2/debian stretch main'
+#Run apt-get update
+#RUN ["/bin/bash", "-c", "debconf-set-selections <<< 'mariadb-server-10.2 mysql-server/root_password password ilcm'"]
+#RUN ["/bin/bash", "-c", "debconf-set-selections <<< 'mariadb-server-10.2 mysql-server/root_password_again password ilcm'"]
+#RUN apt purge -y mysql*
+#Run apt-get update
+#RUN echo $PATH
 #Run DEBIAN_FRONTEND=noninteractive apt-get install --allow-unauthenticated -y mariadb-server 
-Run DEBIAN_FRONTEND=noninteractive apt-get install --allow-unauthenticated -y mariadb-server galera mariadb-client libmariadb3 
+#Run DEBIAN_FRONTEND=noninteractive apt-get install --allow-unauthenticated -y mariadb-server galera mariadb-client libmariadb3 
+
+RUN apt install mariadb-server
+RUN mysql -V
+
+
 
 #ADD init_iLCM.sql /tmp/init_iLCM.sql
 #RUN rm /etc/mysql/my.cnf
