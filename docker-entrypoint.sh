@@ -35,6 +35,6 @@
 #/opt/solr/bin/solr create_core -c iLCM -p 8983 -d /store/solr/config/iLCM &
 set -e
 /opt/solr/bin/solr start -m 2g 
-
+/usr/bin/mysqld_safe --basedir=/usr & sleep 2s
 exec "$@"
 

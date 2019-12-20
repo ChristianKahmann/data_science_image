@@ -1,5 +1,14 @@
 FROM jupyter/datascience-notebook
 # install nbrsessionproxy extension
+
+#####################################bei notebooks.test war dieser Teil nicht notwendig
+USER root
+RUN chown -R jovyan /opt/conda
+RUN chown -R jovyan /home/jovyan/.conda
+USER ${NB_USER}
+#####################################
+
+
 RUN conda install -yq -c conda-forge nbrsessionproxy && \
     conda clean -tipsy
 
@@ -94,8 +103,9 @@ Run apt-get install -y tk
 
 Run R -e "chooseCRANmirror(31,graphics=F);install.packages(c('gsl','slam','Rcpp','topicmodels','tm','igraph','Matrix','readr','digest','htmltools','networkD3','stringdist','glue','jsonlite','plotly','httpuv','mime','shiny','shinythemes','Rtsne','leaps','party','stringi','backports','formattable','RMySQL','RMariaDB','base64enc','yaml','curl','data.table','RcppParallel','quanteda','RCurl'))"
 Run R -e "options(scipen=999)"
-
-RUN R -e "chooseCRANmirror(31,graphics=F);devtools::install('/home/jovyan/tmca.util/');devtools::install('/home/jovyan/tmca.cooccurrence/');devtools::install('/home/jovyan/tmca.contextvolatility/');install.packages('lda');devtools::install('/home/jovyan/tmca.unsupervised/');install.packages('shinyFiles');install.packages('bsplus');install.packages('cleanNLP');install.packages('colourpicker');install.packages('d3heatmap');install.packages('future');install.packages('LDAvis');install.packages('readtext');install.packages('rhandsontable');install.packages('shinyAce');install.packages('shinyBS');install.packages('shinycssloaders');install.packages('shinydashboard');install.packages('https://cran.r-project.org/src/contrib/Archive/DT/DT_0.2.tar.gz', repos=NULL, type='source');install.packages('shinyjqui');install.packages('shinyjs');install.packages('shinyWidgets');install.packages('sparkline');install.packages('visNetwork');install.packages('wordcloud2');install.packages('htmlwidgets');install.packages('shinythemes')"
+RUN conda install gxx_linux-64
+RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('testthat')"
+RUN R -e "chooseCRANmirror(31,graphics=F);devtools::install('/home/jovyan/tmca.util/');devtools::install('/home/jovyan/tmca.cooccurrence/');devtools::install('/home/jovyan/tmca.contextvolatility/');install.packages('lda');devtools::install('/home/jovyan/tmca.unsupervised/');install.packages('shinyFiles');install.packages('bsplus');install.packages('cleanNLP');install.packages('colourpicker');install.packages('d3heatmap');install.packages('solrium');install.packages('LDAvis');install.packages('readtext');install.packages('rhandsontable');install.packages('shinyAce');install.packages('shinyBS');install.packages('shinycssloaders');install.packages('shinydashboard');install.packages('https://cran.r-project.org/src/contrib/Archive/DT/DT_0.2.tar.gz', repos=NULL, type='source');install.packages('shinyjqui');install.packages('shinyjs');install.packages('shinyWidgets');install.packages('sparkline');install.packages('visNetwork');install.packages('wordcloud2');install.packages('htmlwidgets');install.packages('shinythemes');install.packages("https://cran.r-project.org/src/contrib/Archive/future/future_1.8.1.tar.gz", repos=NULL, type='source')"
 
 
 RUN add-apt-repository -y ppa:cran/poppler \
@@ -132,6 +142,7 @@ RUN conda update -y conda \
     && python -m spacy download en
 COPY .profile /home/jovyan/.profile
 RUN chown -R jovyan /opt/conda/
+RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('shinyalert')"
 
 USER root
 
@@ -161,22 +172,25 @@ ADD init_iLCM.sql /tmp/init_iLCM.sql
 
 
 
-#ADD init_iLCM.sql /tmp/init_iLCM.sql
-#RUN rm /etc/mysql/my.cnf
-#COPY my.cnf /etc/mysql/my.cnf
-#RUN test -d /var/run/mariadb || mkdir /var/run/mariadb; \
-#    chmod 0777 /var/run/mariadb; \
-#    /usr/bin/mysqld_safe --basedir=/usr & \
-#    sleep 10s && \
-#    mysql --user=root --password=ilcm < /tmp/init_iLCM.sql && \
-#    mysqladmin shutdown --password=ilcm
+ADD init_iLCM.sql /tmp/init_iLCM.sql
+RUN rm /etc/mysql/my.cnf
+COPY my.cnf /etc/mysql/my.cnf
 
 
+RUN test -d /var/run/mariadb || mkdir /var/run/mariadb; \
+    chmod 0777 /var/run/mariadb; \
+    /usr/bin/mysqld_safe --basedir=/usr & \
+    sleep 10s && \
+    mysql --user=root --password=ilcm < /tmp/init_iLCM.sql && \
+    mysqladmin shutdown --password=ilcm
+
+RUN chmod -R 777 /var/lib/mysql
+RUN chmod -R 777 /var/log/mysql
+RUN chmod -R 777 /var/run/mysqld
 
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
 
 USER $NB_USER
-
 
 
