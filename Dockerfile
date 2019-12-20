@@ -147,7 +147,8 @@ USER root
 #Run DEBIAN_FRONTEND=noninteractive apt-get install --allow-unauthenticated -y mariadb-server 
 #Run DEBIAN_FRONTEND=noninteractive apt-get install --allow-unauthenticated -y mariadb-server galera mariadb-client libmariadb3 
 
-RUN apt install mariadb-server -y
+#RUN apt install mariadb-server -y
+RUN echo "christian:christian" | chpasswd && adduser christian sudo
 RUN mysql -V
 
 
