@@ -134,24 +134,23 @@ COPY .profile /home/jovyan/.profile
 RUN chown -R jovyan /opt/conda/
 
 USER root
-USER root
 
 #install mariadb
 RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
 RUN add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://mirror.zol.co.zw/mariadb/repo/10.2/debian stretch main'
 
-Run apt-get update
-RUN ["/bin/bash", "-c", "debconf-set-selections <<< 'mariadb-server-10.2 mysql-server/root_password password ilcm'"]
-RUN ["/bin/bash", "-c", "debconf-set-selections <<< 'mariadb-server-10.2 mysql-server/root_password_again password ilcm'"]
+#Run apt-get update
+#RUN ["/bin/bash", "-c", "debconf-set-selections <<< 'mariadb-server-10.2 mysql-server/root_password password ilcm'"]
+#RUN ["/bin/bash", "-c", "debconf-set-selections <<< 'mariadb-server-10.2 mysql-server/root_password_again password ilcm'"]
 
-RUN apt purge -y mysql*
-Run apt-get update
-Run DEBIAN_FRONTEND=noninteractive apt-get install --allow-unauthenticated -y mariadb-server 
+#RUN apt purge -y mysql*
+#Run apt-get update
+#Run DEBIAN_FRONTEND=noninteractive apt-get install --allow-unauthenticated -y mariadb-server 
 #Run DEBIAN_FRONTEND=noninteractive apt-get install --allow-unauthenticated -y mariadb-server galera mariadb-client libmariadb3 
 
-ADD init_iLCM.sql /tmp/init_iLCM.sql
-RUN rm /etc/mysql/my.cnf
-COPY my.cnf /etc/mysql/my.cnf
+#ADD init_iLCM.sql /tmp/init_iLCM.sql
+#RUN rm /etc/mysql/my.cnf
+#COPY my.cnf /etc/mysql/my.cnf
 #RUN test -d /var/run/mariadb || mkdir /var/run/mariadb; \
 #    chmod 0777 /var/run/mariadb; \
 #    /usr/bin/mysqld_safe --basedir=/usr & \
