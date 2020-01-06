@@ -3109,8 +3109,8 @@ observeEvent(input$Import_to_solr,{
       paste0(url,"dataimport?command=delta-import"),followlocation=TRUE
     )
     #initiate suggest
-    z<-RCurl::getURL(
-      paste0(url,"suggest?suggest.build=true"),followlocation=TRUE
+        z<-RCurl::getURL(
+          paste0(url,"suggest?suggest.build=true"),followlocation=TRUE
     )
     shinyWidgets::sendSweetAlert(type = "success",session = session,title =  "successfully started solr delta import and solr suggest")
   })

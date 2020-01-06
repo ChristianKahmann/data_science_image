@@ -105,7 +105,7 @@ Run R -e "chooseCRANmirror(31,graphics=F);install.packages(c('gsl','slam','Rcpp'
 Run R -e "options(scipen=999)"
 RUN conda install gxx_linux-64
 RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('testthat')"
-RUN R -e "chooseCRANmirror(31,graphics=F);devtools::install('/home/jovyan/tmca.util/');devtools::install('/home/jovyan/tmca.cooccurrence/');devtools::install('/home/jovyan/tmca.contextvolatility/');install.packages('lda');devtools::install('/home/jovyan/tmca.unsupervised/');install.packages('shinyFiles');install.packages('bsplus');install.packages('cleanNLP');install.packages('colourpicker');install.packages('d3heatmap');install.packages('solrium');install.packages('LDAvis');install.packages('readtext');install.packages('rhandsontable');install.packages('shinyAce');install.packages('shinyBS');install.packages('shinycssloaders');install.packages('shinydashboard');install.packages('https://cran.r-project.org/src/contrib/Archive/DT/DT_0.2.tar.gz', repos=NULL, type='source');install.packages('shinyjqui');install.packages('shinyjs');install.packages('shinyWidgets');install.packages('sparkline');install.packages('visNetwork');install.packages('wordcloud2');install.packages('htmlwidgets');install.packages('shinythemes');install.packages("https://cran.r-project.org/src/contrib/Archive/future/future_1.8.1.tar.gz", repos=NULL, type='source')"
+RUN R -e "chooseCRANmirror(31,graphics=F);devtools::install('/home/jovyan/tmca.util/');devtools::install('/home/jovyan/tmca.cooccurrence/');devtools::install('/home/jovyan/tmca.contextvolatility/');install.packages('lda');devtools::install('/home/jovyan/tmca.unsupervised/');install.packages('shinyFiles');install.packages('bsplus');install.packages('cleanNLP');install.packages('colourpicker');install.packages('d3heatmap');install.packages('solrium');install.packages('LDAvis');install.packages('readtext');install.packages('rhandsontable');install.packages('shinyAce');install.packages('shinyBS');install.packages('shinycssloaders');install.packages('shinydashboard');install.packages('https://cran.r-project.org/src/contrib/Archive/DT/DT_0.2.tar.gz', repos=NULL, type='source');install.packages('shinyjqui');install.packages('shinyjs');install.packages('shinyWidgets');install.packages('sparkline');install.packages('visNetwork');install.packages('wordcloud2');install.packages('htmlwidgets');install.packages('shinythemes');install.packages('https://cran.r-project.org/src/contrib/Archive/future/future_1.8.1.tar.gz', repos=NULL, type='source')"
 
 
 RUN add-apt-repository -y ppa:cran/poppler \
@@ -171,6 +171,7 @@ Run DEBIAN_FRONTEND=noninteractive apt-get install --allow-unauthenticated -y ne
 ADD init_iLCM.sql /tmp/init_iLCM.sql
 
 
+RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('globals');install.packages('listenv');install.packages('https://cran.r-project.org/src/contrib/Archive/future/future_1.8.1.tar.gz', repos=NULL, type='source')"
 
 ADD init_iLCM.sql /tmp/init_iLCM.sql
 RUN rm /etc/mysql/my.cnf
