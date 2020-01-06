@@ -27,7 +27,7 @@ c25 <- rainbow(25)
 #Sys.setenv(PATH="/home/rstudio/miniconda3/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games")
 
 #initiate solr suggest 
-z<-RCurl__getURL(
+z<-RCurl::getURL(
 	paste0(stringr::str_replace(string = url,pattern = "select/",replacement = ""),"suggest?suggest.build=true"),
 	followlocation=TRUE
 )
