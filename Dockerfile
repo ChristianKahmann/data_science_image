@@ -1,4 +1,5 @@
-FROM jupyter/datascience-notebook
+#FROM jupyter/datascience-notebook
+FROM ckahmann/jupyterdatascience-notebook:april
 # install nbrsessionproxy extension
 
 #####################################bei notebooks.test war dieser Teil nicht notwendig
