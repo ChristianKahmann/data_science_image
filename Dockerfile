@@ -189,7 +189,7 @@ COPY my.cnf /etc/mysql/my.cnf
 
 
 ###richtig einordnen
-RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('randomcoloR');install.packages('acepack');install.packages('Formula');options(unzip = 'internal');devtools::install_github('cran/latticeExtra');install.packages('foreign');install.packages('htmlTable');install.packages('fields');install.packages('plotrix');install.packages('randomForestSRC');install.packages('tidytext');install.packages('textreuse');devtools::install_github('ramnathv/rChartsCalmap');devtools::install_github('lchiffon/wordcloud2');devtools::install_github("ijlyttle/bsplus")"
+RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('randomcoloR');install.packages('acepack');install.packages('Formula');options(unzip = 'internal');devtools::install_github('cran/latticeExtra');install.packages('foreign');install.packages('htmlTable');install.packages('fields');install.packages('plotrix');install.packages('randomForestSRC');install.packages('tidytext');install.packages('textreuse');devtools::install_github('ramnathv/rChartsCalmap');devtools::install_github('lchiffon/wordcloud2');devtools::install_github('ijlyttle/bsplus')"
 COPY fifer/ /opt/conda/lib/R/library/fifer
 COPY Hmisc/ /opt/conda/lib/R/library/Hmisc
 
