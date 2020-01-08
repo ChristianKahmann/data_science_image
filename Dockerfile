@@ -178,8 +178,123 @@ RUN pip install --no-cache-dir https://github.com/jupyterhub/jupyter-server-prox
     R --quiet -e "IRkernel::installspec(prefix='$NB_PYTHON_PREFIX')" && \
     R --quiet -e "install.packages('shiny', repos='https://mran.microsoft.com/snapshot/2019-04-10', method='libcurl')"
     
-    
+
+#ARG REPO_DIR=${HOME}
+#ENV REPO_DIR ${REPO_DIR}
+WORKDIR ${HOME}
+ENV PATH ${HOME}/.local/bin:${HOME}/.local/bin:${PATH}
+
+
+USER root
+RUN chown -R ${NB_USER} ${HOME}
+RUN echo "options(repos = c(CRAN='https://mran.microsoft.com/snapshot/2019-04-10'), download.file.method = 'libcurl')" > /etc/R/Rprofile.site && \
+    install -o ${NB_USER} -d /var/log/shiny-server && \
+    install -o ${NB_USER} -d /var/lib/shiny-server && \
+    install -o ${NB_USER}  /dev/null /var/log/shiny-server.log && \
+    install -o ${NB_USER}  /dev/null /var/run/shiny-server.pid
+
+
+#COPY shiny-server.conf /etc/shiny-server/
+
+#install r libraries
+
+Run apt-get update && \
+   R -e  "chooseCRANmirror(31,graphics=F);install.packages(c('gsl','slam','Rcpp','topicmodels','tm','igraph','Matrix','readr','digest','htmltools','networkD3','stringdist','glue','jsonlite','plotly','httpuv','mime','shiny','shinythemes','Rtsne','leaps','party','stringi','backports','formattable','RMySQL','base64enc','yaml','curl','data.table','RcppParallel','quanteda','RCurl'))" $$ \
+    R -e "options(scipen=999)" && \
+    conda install gxx_linux-64 && \
+    R -e "chooseCRANmirror(31,graphics=F);install.packages('testthat')" && \
+    R -e "chooseCRANmirror(31,graphics=F);devtools::install('/home/jovyan/tmca.util/');devtools::install('/home/jovyan/tmca.cooccurrence/');devtools::install('/home/jovyan/tmca.contextvolatility/');install.packages('lda');devtools::install('/home/jovyan/tmca.unsupervised/');install.packages('shinyFiles');install.packages('bsplus');install.packages('cleanNLP');install.packages('colourpicker');install.packages('d3heatmap');install.packages('solrium');install.packages('LDAvis');install.packages('readtext');install.packages('rhandsontable');install.packages('shinyAce');install.packages('shinyBS');install.packages('shinycssloaders');install.packages('shinydashboard');install.packages('https://cran.r-project.org/src/contrib/Archive/DT/DT_0.2.tar.gz', repos=NULL, type='source');install.packages('shinyjqui');install.packages('shinyjs');install.packages('shinyWidgets');install.packages('sparkline');install.packages('visNetwork');install.packages('wordcloud2');install.packages('htmlwidgets');install.packages('shinythemes');install.packages('https://cran.r-project.org/src/contrib/Archive/future/future_1.8.1.tar.gz', repos=NULL, type='source')" && \
+    R -e "chooseCRANmirror(31,graphics=F);install.packages('readtext')" && \
+    R -e "options(unzip = 'internal');devtools::install_github('nik01010/dashboardthemes')" && \
+    R -e "options(unzip = 'internal');devtools::install_github('bmschmidt/wordVectors')" && \
+    R -e "chooseCRANmirror(31,graphics=F);install.packages('XML')" && \
+    R -e "options(unzip = 'internal');devtools::install_github('cran/solr')" && \
+    R -e "options(unzip = 'internal');devtools::install_github('AnalytixWare/ShinySky')" && \
+    R -e "chooseCRANmirror(31,graphics=F);install.packages('wordcloud')" && \
+    R -e "chooseCRANmirror(31,graphics=F);install.packages('sodium')" && \
+    export TAR="/bin/tar" && \
+    apt autoremove -y && \
+    apt install -y r-cran-curl r-cran-knitr r-cran-testthat r-cran-jsonlite r-cran-jsonlite r-cran-httpuv && \
+    conda install -c conda-forge libv8  && \
+    R -e "chooseCRANmirror(31,graphics=F);install.packages('V8')"  && \
+    chown -R jovyan /home/jovyan/iLCM/  && \
+    R -e "chooseCRANmirror(31,graphics=F);install.packages('Matrix');install.packages('igraph');install.packages('networkD3');install.packages('slam');install.packages('tm');install.packages('diffr');options(unzip = 'internal');devtools::install_github('ThomasSiegmund/shinyTypeahead')"  && \
+    conda update -y conda  && \
+    conda install -y spacy  && \
+    python -m spacy download de  && \
+    python -m spacy download en  && \
+    chown -R jovyan /opt/conda/  && \
+    R -e "chooseCRANmirror(31,graphics=F);install.packages('shinyalert')"  && \
+    R -e "chooseCRANmirror(31,graphics=F);install.packages('globals');install.packages('listenv');install.packages('https://cran.r-project.org/src/contrib/Archive/future/future_1.8.1.tar.gz', repos=NULL, type='source')"
+
+
+
+
+
+#configure mariadb
+
+RUN test -d /var/run/mariadb || mkdir /var/run/mariadb; \
+    chmod 0777 /var/run/mariadb; \
+    /usr/bin/mysqld_safe --basedir=/usr & \
+    sleep 10s && \
+    mysql --user=root --password=ilcm < /tmp/init_iLCM.sql && \
+    mysqladmin shutdown --password=ilcm
+
+RUN chmod -R 777 /var/lib/mysql && \
+    chmod -R 777 /var/log/mysql && \
+    chmod -R 777 /var/run/mysqld && \
+    apt-get autoclean -y && \
+    apt-get autoremove -y && \
+    apt-get clean -y &&\
+    rm -r /home/jovyan/solr && \
+    rm -r /home/jovyan/tmca.classify && \
+    rm -r /home/jovyan/tmca.contextvolatility && \
+    rm -r /home/jovyan/tmca.cooccurrence && \
+    rm -r /home/jovyan/oldSources && \
+    rm -r /home/jovyan/tmca.experiments && \
+    rm -r /home/jovyan/db && \
+    rm -r /home/jovyan/tmca.iLCMProjectDocumentation && \
+    rm -r /home/jovyan/tmca.supervised && \
+    rm -r /home/jovyan/tmca.unsupervised && \
+    rm -r /home/jovyan/tmca.util && \
+    rm  /home/jovyan/docker-compose.yml && \
+    rm  /home/jovyan/iLCM-source_reader_system.Rproj && \
+    rm  /home/jovyan/install_solr_service.sh && \
+    rm  /home/jovyan/R_tmca_package.Rproj && \
+    rm  /home/jovyan/read_conll_test.R && \
+    rm  /home/jovyan/runDockerZookeeperSolrMariaDB.R && \
+    rm  /home/jovyan/small_dtm.rdata && \
+    rm  /home/jovyan/solr-7.7.2.tgz && \
+    rm  /home/jovyan/tdt_test.R && \
+    rm  /home/jovyan/tmca-master.Rproj && \
+    rm  /home/jovyan/ClassTest.R && \
+    rm  /home/jovyan/windowsSetupAndreas.R
+
+
+
+
+
+
+RUN mkdir /home/jovyan/mysql/ && \
+    cp -r /var/lib/mysql/* /home/jovyan/mysql/ && \
+    chown -R jovyan /home/jovyan/mysql  && \
+    mkdir /home/jovyan/solr/ && \
+    chown -R jovyan /home/jovyan/solr
+
+COPY my.cnf /etc/mysql/my.cnf 
+
+
+
+###richtig einordnen
+RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('randomcoloR');install.packages('acepack');install.packages('Formula');options(unzip = 'internal');devtools::install_github('cran/latticeExtra');install.packages('foreign');install.packages('htmlTable');install.packages('fields');install.packages('plotrix');install.packages('randomForestSRC');install.packages('tidytext');install.packages('textreuse');devtools::install_github('ramnathv/rChartsCalmap');devtools::install_github('lchiffon/wordcloud2');devtools::install_github('ijlyttle/bsplus')"
+COPY fifer/ /opt/conda/lib/R/library/fifer
+COPY Hmisc/ /opt/conda/lib/R/library/Hmisc
+
 RUN conda clean -a
 
+COPY docker-entrypoint.sh /
+ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
+
 USER $NB_USER
+
 
