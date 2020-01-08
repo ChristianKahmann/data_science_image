@@ -193,10 +193,9 @@ RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('randomcoloR');instal
 COPY fifer/ /opt/conda/lib/R/library/fifer
 COPY Hmisc/ /opt/conda/lib/R/library/Hmisc
 
-RUN conda install -c conda-forge configurable-http-proxy
 
-COPY docker-entrypoint.sh /
-ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
+#COPY docker-entrypoint.sh /
+#ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
 
 USER $NB_USER
 
