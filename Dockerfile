@@ -1,16 +1,111 @@
-#FROM jupyter/datascience-notebook
-FROM ckahmann/jupyterdatascience-notebook:april
-# install nbrsessionproxy extension
+# https://hub.docker.com/r/jupyter/datascience-notebook/tags/
+# https://github.com/jupyter/docker-stacks/tree/master/datascience-notebook
+FROM jupyter/datascience-notebook:1386e2046833
 
-#####################################bei notebooks.test war dieser Teil nicht notwendig
+## Install some more R packages
+## Install them by extending the list from https://github.com/jupyter/docker-stacks/blob/master/datascience-notebook/Dockerfile
+## in order to prevent them from upgrade/downgrade
+#RUN conda install --quiet --yes \
+#    'rpy2=2.8*' \
+#    'r-base=3.4.1' \
+#    'r-irkernel=0.8*' \
+#    'r-plyr=1.8*' \
+#    'r-devtools=1.13*' \
+#    'r-tidyverse=1.1*' \
+#    'r-shiny=1.0*' \
+#    'r-rmarkdown=1.8*' \
+#    'r-forecast=8.2*' \
+#    'r-rsqlite=2.0*' \
+#    'r-reshape2=1.4*' \
+#    'r-nycflights13=0.2*' \
+#    'r-caret=6.0*' \
+#    'r-rcurl=1.95*' \
+#    'r-crayon=1.3*' \
+#    'r-randomforest=4.6*' \
+#    'r-htmltools=0.3*' \
+#    'r-sparklyr=0.7*' \
+#    'r-htmlwidgets=1.0*' \
+#    'r-hexbin=1.27*' \
+#    'r-rjava=0.9*' \
+#    # https://cran.r-project.org/web/packages/topicmodels/index.html
+#    # r-topicmodels imports r-tm-0.7_5 andn r-tm imports r-nlp-0.1_11
+#    'r-topicmodels=0.2*' \
+#    'r-lda=1.4*' \
+#    && \
+#    conda clean -tipsy && \
+#    fix-permissions $CONDA_DIR && \
+#    fix-permissions /home/$NB_USER
+
+# Install some more python packages
+# conda-forge is already added in https://github.com/jupyter/docker-stacks/blob/master/base-notebook/Dockerfile
+RUN conda install --quiet --yes \
+    'lxml=4.2.*' \
+    'wordcloud=1.5.*' && \
+    conda clean -tipsy && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
+
+# Install java for R (for rJava, openNLP, openNLPdata packages)
 USER root
-RUN chown -R jovyan /opt/conda
-RUN chown -R jovyan /home/jovyan/.conda
-USER ${NB_USER}
+RUN apt-get update -qq && \
+    apt-get install -qq -y --no-install-recommends \
+    gsl-bin \
+    libgsl0-dev \
+    default-jre \
+    default-jdk \
+    r-cran-rjava \
+    && apt-get clean -qq && \
+    rm -rf /var/lib/apt/lists/*
+RUN R CMD javareconf
+USER $NB_USER
+
+
+# Install some more R packages
+# opennlp requires all r packages to be updated to newer version
+RUN conda install --quiet --yes \
+    -c bitnik \
+    'rpy2' \
+    'r-base' \
+    'r-irkernel' \
+    'r-plyr' \
+    'r-devtools' \
+    'r-tidyverse' \
+    'r-shiny' \
+    'r-rmarkdown' \
+    'r-forecast' \
+    'r-rsqlite' \
+    'r-reshape2' \
+    'r-nycflights13' \
+    'r-caret' \
+    'r-rcurl' \
+    'r-crayon' \
+    'r-randomforest' \
+    'r-htmltools' \
+    'r-sparklyr' \
+    'r-htmlwidgets' \
+    'r-hexbin' \
+    'r-rjava' \
+    # https://cran.r-project.org/web/packages/topicmodels/index.html
+    # r-topicmodels imports r-tm-0.7_5 andn r-tm imports r-nlp-0.1_11
+    'r-topicmodels=0.2*' \
+    'r-lda=1.4*' \
+    # install through https://anaconda.org/bitnik/repo
+    # https://cran.r-project.org/web/packages/openNLP/index.html
+    # OpenNLP imports NLP (≥ 0.1-6.3), openNLPdata (≥ 1.5.3-1), rJava (≥ 0.6-3)
+    'r-opennlpdata=1.5.*' \
+    'r-opennlp=0.2*' \
+    && \
+    conda clean -tipsy && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
+
+RUN pip install --no-cache-dir nbgitpuller
+
 RUN conda install -yq -c conda-forge nbrsessionproxy && \
     conda clean -tipsy 
-#####################################
-
+    
+    
+USER root
 #Copy Data
 USER root
 RUN mkdir /home/jovyan/iLCM/
@@ -82,122 +177,9 @@ RUN pip install --no-cache-dir https://github.com/jupyterhub/jupyter-server-prox
     R --quiet -e "devtools::install_github('IRkernel/IRkernel', ref='0.8.11')" && \
     R --quiet -e "IRkernel::installspec(prefix='$NB_PYTHON_PREFIX')" && \
     R --quiet -e "install.packages('shiny', repos='https://mran.microsoft.com/snapshot/2019-04-10', method='libcurl')"
-
-#ARG REPO_DIR=${HOME}
-#ENV REPO_DIR ${REPO_DIR}
-WORKDIR ${HOME}
-ENV PATH ${HOME}/.local/bin:${HOME}/.local/bin:${PATH}
-
-
-USER root
-RUN chown -R ${NB_USER} ${HOME}
-RUN echo "options(repos = c(CRAN='https://mran.microsoft.com/snapshot/2019-04-10'), download.file.method = 'libcurl')" > /etc/R/Rprofile.site && \
-    install -o ${NB_USER} -d /var/log/shiny-server && \
-    install -o ${NB_USER} -d /var/lib/shiny-server && \
-    install -o ${NB_USER}  /dev/null /var/log/shiny-server.log && \
-    install -o ${NB_USER}  /dev/null /var/run/shiny-server.pid
-
-
-#COPY shiny-server.conf /etc/shiny-server/
-
-#install r libraries
-
-Run apt-get update && \
-   R -e  "chooseCRANmirror(31,graphics=F);install.packages(c('gsl','slam','Rcpp','topicmodels','tm','igraph','Matrix','readr','digest','htmltools','networkD3','stringdist','glue','jsonlite','plotly','httpuv','mime','shiny','shinythemes','Rtsne','leaps','party','stringi','backports','formattable','RMySQL','base64enc','yaml','curl','data.table','RcppParallel','quanteda','RCurl'))" $$ \
-    R -e "options(scipen=999)" && \
-    conda install gxx_linux-64 && \
-    R -e "chooseCRANmirror(31,graphics=F);install.packages('testthat')" && \
-    R -e "chooseCRANmirror(31,graphics=F);devtools::install('/home/jovyan/tmca.util/');devtools::install('/home/jovyan/tmca.cooccurrence/');devtools::install('/home/jovyan/tmca.contextvolatility/');install.packages('lda');devtools::install('/home/jovyan/tmca.unsupervised/');install.packages('shinyFiles');install.packages('bsplus');install.packages('cleanNLP');install.packages('colourpicker');install.packages('d3heatmap');install.packages('solrium');install.packages('LDAvis');install.packages('readtext');install.packages('rhandsontable');install.packages('shinyAce');install.packages('shinyBS');install.packages('shinycssloaders');install.packages('shinydashboard');install.packages('https://cran.r-project.org/src/contrib/Archive/DT/DT_0.2.tar.gz', repos=NULL, type='source');install.packages('shinyjqui');install.packages('shinyjs');install.packages('shinyWidgets');install.packages('sparkline');install.packages('visNetwork');install.packages('wordcloud2');install.packages('htmlwidgets');install.packages('shinythemes');install.packages('https://cran.r-project.org/src/contrib/Archive/future/future_1.8.1.tar.gz', repos=NULL, type='source')" && \
-    R -e "chooseCRANmirror(31,graphics=F);install.packages('readtext')" && \
-    R -e "options(unzip = 'internal');devtools::install_github('nik01010/dashboardthemes')" && \
-    R -e "options(unzip = 'internal');devtools::install_github('bmschmidt/wordVectors')" && \
-    R -e "chooseCRANmirror(31,graphics=F);install.packages('XML')" && \
-    R -e "options(unzip = 'internal');devtools::install_github('cran/solr')" && \
-    R -e "options(unzip = 'internal');devtools::install_github('AnalytixWare/ShinySky')" && \
-    R -e "chooseCRANmirror(31,graphics=F);install.packages('wordcloud')" && \
-    R -e "chooseCRANmirror(31,graphics=F);install.packages('sodium')" && \
-    export TAR="/bin/tar" && \
-    apt autoremove -y && \
-    apt install -y r-cran-curl r-cran-knitr r-cran-testthat r-cran-jsonlite r-cran-jsonlite r-cran-httpuv && \
-    conda install -c conda-forge libv8  && \
-    R -e "chooseCRANmirror(31,graphics=F);install.packages('V8')"  && \
-    chown -R jovyan /home/jovyan/iLCM/  && \
-    R -e "chooseCRANmirror(31,graphics=F);install.packages('Matrix');install.packages('igraph');install.packages('networkD3');install.packages('slam');install.packages('tm');install.packages('diffr');options(unzip = 'internal');devtools::install_github('ThomasSiegmund/shinyTypeahead')"  && \
-    conda update -y conda  && \
-    conda install -y spacy  && \
-    python -m spacy download de  && \
-    python -m spacy download en  && \
-    chown -R jovyan /opt/conda/  && \
-    R -e "chooseCRANmirror(31,graphics=F);install.packages('shinyalert')"  && \
-    R -e "chooseCRANmirror(31,graphics=F);install.packages('globals');install.packages('listenv');install.packages('https://cran.r-project.org/src/contrib/Archive/future/future_1.8.1.tar.gz', repos=NULL, type='source')"
-
-
-
-
-
-#configure mariadb
-
-RUN test -d /var/run/mariadb || mkdir /var/run/mariadb; \
-    chmod 0777 /var/run/mariadb; \
-    /usr/bin/mysqld_safe --basedir=/usr & \
-    sleep 10s && \
-    mysql --user=root --password=ilcm < /tmp/init_iLCM.sql && \
-    mysqladmin shutdown --password=ilcm
-
-RUN chmod -R 777 /var/lib/mysql && \
-    chmod -R 777 /var/log/mysql && \
-    chmod -R 777 /var/run/mysqld && \
-    apt-get autoclean -y && \
-    apt-get autoremove -y && \
-    apt-get clean -y &&\
-    rm -r /home/jovyan/solr && \
-    rm -r /home/jovyan/tmca.classify && \
-    rm -r /home/jovyan/tmca.contextvolatility && \
-    rm -r /home/jovyan/tmca.cooccurrence && \
-    rm -r /home/jovyan/oldSources && \
-    rm -r /home/jovyan/tmca.experiments && \
-    rm -r /home/jovyan/db && \
-    rm -r /home/jovyan/tmca.iLCMProjectDocumentation && \
-    rm -r /home/jovyan/tmca.supervised && \
-    rm -r /home/jovyan/tmca.unsupervised && \
-    rm -r /home/jovyan/tmca.util && \
-    rm  /home/jovyan/docker-compose.yml && \
-    rm  /home/jovyan/iLCM-source_reader_system.Rproj && \
-    rm  /home/jovyan/install_solr_service.sh && \
-    rm  /home/jovyan/R_tmca_package.Rproj && \
-    rm  /home/jovyan/read_conll_test.R && \
-    rm  /home/jovyan/runDockerZookeeperSolrMariaDB.R && \
-    rm  /home/jovyan/small_dtm.rdata && \
-    rm  /home/jovyan/solr-7.7.2.tgz && \
-    rm  /home/jovyan/tdt_test.R && \
-    rm  /home/jovyan/tmca-master.Rproj && \
-    rm  /home/jovyan/ClassTest.R && \
-    rm  /home/jovyan/windowsSetupAndreas.R
-
-
-
-
-
-
-RUN mkdir /home/jovyan/mysql/ && \
-    cp -r /var/lib/mysql/* /home/jovyan/mysql/ && \
-    chown -R jovyan /home/jovyan/mysql  && \
-    mkdir /home/jovyan/solr/ && \
-    chown -R jovyan /home/jovyan/solr
-
-COPY my.cnf /etc/mysql/my.cnf 
-
-
-
-###richtig einordnen
-RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('randomcoloR');install.packages('acepack');install.packages('Formula');options(unzip = 'internal');devtools::install_github('cran/latticeExtra');install.packages('foreign');install.packages('htmlTable');install.packages('fields');install.packages('plotrix');install.packages('randomForestSRC');install.packages('tidytext');install.packages('textreuse');devtools::install_github('ramnathv/rChartsCalmap');devtools::install_github('lchiffon/wordcloud2');devtools::install_github('ijlyttle/bsplus')"
-COPY fifer/ /opt/conda/lib/R/library/fifer
-COPY Hmisc/ /opt/conda/lib/R/library/Hmisc
-
-
-COPY docker-entrypoint.sh /
-ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
+    
+    
+RUN conda clean -a
 
 USER $NB_USER
-
 
