@@ -1,0 +1,80 @@
+SummarizeContinuousDefault
+                        Summarize a continuous vector with mean
+                        plus/minus standard deviation
+SummarizeFactorDefault
+                        Summarize a factor vector with count and
+                        percentages
+SummarizeVar            Summarize a vector (continuous or factor)
+anchored.gradient       Create a color gradient with a color for zero
+auto.layout             Automatically select the layout.
+boxcoxR                 Transform data using a boxcox transformation
+chisq.post.hoc          Tests for significant differences among all
+                        pairs of populations in a chi-square test.
+clear                   Clear memory of all objects
+colored.table           Create a color-coded table in latex
+compute.theta           Calculate inverse tangent.
+contents                View the contents (functions) of a package
+cor2cov                 Correlation Matrix to Covariance Matrix
+                        Conversion
+demographics            Summarize a Data Set (Demographics)
+densityPlotR            Generate a density plot using a formula
+drop.columns            Drop (or keep) all columns containing a vector
+                        of strings
+ellipse                 Plots an Ellipse
+excelCols               Generate Excel column labels
+excelMatch              Obtain column number or variable name from
+                        Excel named Columns
+fakeMedicalData         Fictitious Medical Dataset
+get.cols                Extract column index
+gradient.legend         Create a gradiented legend
+hash                    Create useless hashes
+imageInteraction        Plot an two-way quantitative interaction in an
+                        image plot
+intersperse             Intersperse elements of Two+ Vectors
+last.sample             Return only one row per ID
+make.formula            Convert strings to a formula
+make.null               Drop or keep variables in a dataset
+make.symmetric          Force a matrix to be symmetric
+missing.vals            Summary of Missing Data
+mv.rnorm                Randomly Generate Multivariate Normal Data
+number.to.colors        Convert from numbers to colors
+par1                    Change default par parameters
+par2                    Change default par parameters
+plot.rfInterp           Plot rfInterp Summary
+plot.rfPred             Plot rfPred Summary
+plot.rfThresh           rfThesh Summary
+plotSigBars             Add significance bars to a prism plot
+print.rfInterp          Print rfInterp Summary
+print.rfPred            Print rfPred Summary
+print.rfThresh          Print rfThesh Summary
+printx                  Change Defaults of print.xtable
+prism.plots             Plot prism-like Plots
+pval.xtable             Convert p-values into strings with
+                        inequalities.
+r                       Extract variable column indices
+r.crit                  Compute critical r or p.
+random.correlation      Generate a random correlation matrix
+read.fife               Read in a dataset and load the meta-data for a
+                        file
+rfInterp                Variable Selection with Random Forest
+rfPred                  Variable selection in Random Forest
+rfSensitivity           Output accuracy, sensitivity, specificity, NPV,
+                        and PPV.
+rfThresh                Variable Selection Using Random Forests
+rotateGraph             Rotate a graph using polar coordinates
+roxtemp                 Generate a Roxygen Template
+scaleB                  Standardize coefficients
+scaleBreak              Scatterplot with a Scale Break
+scaleIt                 Scale a variable
+spearman.plot           Spearman plot
+stratified              Sample from a 'data.frame' according to a
+                        stratification variable
+string.to.colors        Convert between strings to colors
+subsetString            Extract only part of a string
+summary.rfPred          Print a Summary Table of rfPred
+unfactor                Convert a factor to a character (or number)
+univariate.tests        Extract p values for a data frame
+write.fife              Write a dataset and load the meta-data
+xtable.rfInterp         Prepare xtable Summary
+xtable.rfPred           Prepare xtable Summary
+z.test                  Perform a z test

@@ -23,9 +23,13 @@ ADD solr-1/logs /opt/logs
 ADD solr-1/store /store
 ADD solr-1/docker-entrypoint-initdb.d /docker-entrypoint-initdb.d
 ADD init_iLCM.sql /tmp/init_iLCM.sql
+COPY RMariaDB/ /opt/conda/lib/R/library/RMariaDB
+
 
 #install libraries, solr, mariadb
-RUN apt-get update && apt-get install -y --no-install-recommends apt-utils && \
+RUN apt-get update && \
+    apt-get install -y --allow-unauthenticated libssl-dev mysql-client libcurl4-openssl-dev libxml2 libgsl-dev gsl-bin libxml2-dev libv8-dev libmariadbclient-dev && \
+    apt-get install -y --no-install-recommends apt-utils && \
     apt install dirmngr net-tools nano -y && \
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0xB1998361219BD9C9 && \
     echo "deb http://repos.azulsystems.com/debian stable main" | sudo tee /etc/apt/sources.list.d/zulu.list && \
@@ -36,8 +40,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends apt-utils && \
     tar xzf solr-7.7.2.tgz solr-7.7.2/bin/install_solr_service.sh --strip-components=2 && \
     bash ./install_solr_service.sh solr-7.7.2.tgz && \
     chown -R jovyan /opt/solr/ && \
-    apt-get install -y --allow-unauthenticated libssl-dev mysql-client libcurl4-openssl-dev libxml2 libgsl-dev gsl-bin libxml2-dev libv8-dev libmariadbclient-dev && \
-    R -e "chooseCRANmirror(31,graphics=F);install.packages('RMariaDB')" && \
     apt-get install -y tk && \
     apt-get install -y software-properties-common && \
     apt-get update && \
@@ -130,25 +132,9 @@ Run apt-get update && \
 
 
 
-#install mariadb
-#RUN apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-#RUN add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://mirror.zol.co.zw/mariadb/repo/10.2/debian stretch main'
-#Run apt-get update
-#RUN ["/bin/bash", "-c", "debconf-set-selections <<< 'mariadb-server-10.2 mysql-server/root_password password ilcm'"]
-#RUN ["/bin/bash", "-c", "debconf-set-selections <<< 'mariadb-server-10.2 mysql-server/root_password_again password ilcm'"]
-#RUN apt purge -y mysql*
-#Run apt-get update
-#RUN echo $PATH
-#Run DEBIAN_FRONTEND=noninteractive apt-get install --allow-unauthenticated -y mariadb-server 
-#Run DEBIAN_FRONTEND=noninteractive apt-get install --allow-unauthenticated -y mariadb-server galera mariadb-client libmariadb3 
 
 
-
-
-
-
-
-
+#configure mariadb
 
 RUN test -d /var/run/mariadb || mkdir /var/run/mariadb; \
     chmod 0777 /var/run/mariadb; \
@@ -162,7 +148,50 @@ RUN chmod -R 777 /var/lib/mysql && \
     chmod -R 777 /var/run/mysqld && \
     apt-get autoclean -y && \
     apt-get autoremove -y && \
-    apt-get clean -y
+    apt-get clean -y &&\
+    rm -r /home/jovyan/solr && \
+    rm -r /home/jovyan/tmca.classify && \
+    rm -r /home/jovyan/tmca.contextvolatility && \
+    rm -r /home/jovyan/tmca.cooccurrence && \
+    rm -r /home/jovyan/oldSources && \
+    rm -r /home/jovyan/tmca.experiments && \
+    rm -r /home/jovyan/db && \
+    rm -r /home/jovyan/tmca.iLCMProjectDocumentation && \
+    rm -r /home/jovyan/tmca.supervised && \
+    rm -r /home/jovyan/tmca.unsupervised && \
+    rm -r /home/jovyan/tmca.util && \
+    rm  /home/jovyan/docker-compose.yml && \
+    rm  /home/jovyan/iLCM-source_reader_system.Rproj && \
+    rm  /home/jovyan/install_solr_service.sh && \
+    rm  /home/jovyan/R_tmca_package.Rproj && \
+    rm  /home/jovyan/read_conll_test.R && \
+    rm  /home/jovyan/runDockerZookeeperSolrMariaDB.R && \
+    rm  /home/jovyan/small_dtm.rdata && \
+    rm  /home/jovyan/solr-7.7.2.tgz && \
+    rm  /home/jovyan/tdt_test.R && \
+    rm  /home/jovyan/tmca-master.Rproj && \
+    rm  /home/jovyan/ClassTest.R && \
+    rm  /home/jovyan/windowsSetupAndreas.R
+
+
+
+
+
+
+RUN mkdir /home/jovyan/mysql/ && \
+    cp -r /var/lib/mysql/* /home/jovyan/mysql/ && \
+    chown -R jovyan /home/jovyan/mysql  && \
+    mkdir /home/jovyan/solr/ && \
+    chown -R jovyan /home/jovyan/solr
+
+COPY my.cnf /etc/mysql/my.cnf 
+
+
+
+###richtig einordnen
+RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('randomcoloR');install.packages('acepack');install.packages('Formula');options(unzip = 'internal');devtools::install_github('cran/latticeExtra');install.packages('foreign');install.packages('htmlTable');install.packages('fields');install.packages('plotrix');install.packages('randomForestSRC');install.packages('tidytext');install.packages('textreuse');devtools::install_github('ramnathv/rChartsCalmap');devtools::install_github('lchiffon/wordcloud2');devtools::install_github("ijlyttle/bsplus")"
+COPY fifer/ /opt/conda/lib/R/library/fifer
+COPY Hmisc/ /opt/conda/lib/R/library/Hmisc
 
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
