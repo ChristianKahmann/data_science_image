@@ -194,8 +194,8 @@ COPY fifer/ /opt/conda/lib/R/library/fifer
 COPY Hmisc/ /opt/conda/lib/R/library/Hmisc
 
 
-#COPY docker-entrypoint.sh /
-#ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
+COPY docker-entrypoint.sh /
+ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
 
 USER $NB_USER
 
