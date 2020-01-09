@@ -1,6 +1,7 @@
 # https://hub.docker.com/r/jupyter/datascience-notebook/tags/
 # https://github.com/jupyter/docker-stacks/tree/master/datascience-notebook
-FROM jupyter/datascience-notebook:1386e2046833
+aktuellstes 
+jupyter/datascience-notebook:7a0c7325e470
 
 
 # Install some more python packages
@@ -15,12 +16,6 @@ RUN conda install --quiet --yes \
 
 
 USER $NB_USER
-
-
-
-RUN conda clean -tipsy && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
 
 RUN pip install --no-cache-dir nbgitpuller
 
@@ -43,6 +38,8 @@ ADD solr-1/store /store
 ADD solr-1/docker-entrypoint-initdb.d /docker-entrypoint-initdb.d
 ADD init_iLCM.sql /tmp/init_iLCM.sql
 COPY RMariaDB/ /opt/conda/lib/R/library/RMariaDB
+COPY fifer/ /opt/conda/lib/R/library/fifer
+COPY Hmisc/ /opt/conda/lib/R/library/Hmisc
 
 
 #install libraries, solr, mariadb
@@ -117,8 +114,6 @@ RUN echo "options(repos = c(CRAN='https://mran.microsoft.com/snapshot/2019-04-10
     install -o ${NB_USER}  /dev/null /var/run/shiny-server.pid
 
 
-#COPY shiny-server.conf /etc/shiny-server/
-
 #install r libraries
 
 Run apt-get update && \
@@ -148,7 +143,9 @@ Run apt-get update && \
     python -m spacy download en  && \
     chown -R jovyan /opt/conda/  && \
     R -e "chooseCRANmirror(31,graphics=F);install.packages('shinyalert')"  && \
-    R -e "chooseCRANmirror(31,graphics=F);install.packages('globals');install.packages('listenv');install.packages('https://cran.r-project.org/src/contrib/Archive/future/future_1.8.1.tar.gz', repos=NULL, type='source')"
+    R -e "chooseCRANmirror(31,graphics=F);install.packages('globals');install.packages('listenv');install.packages('https://cran.r-project.org/src/contrib/Archive/future/future_1.8.1.tar.gz', repos=NULL, type='source')" && \
+    R -e "chooseCRANmirror(31,graphics=F);install.packages('randomcoloR');install.packages('acepack');install.packages('Formula');options(unzip = 'internal');devtools::install_github('cran/latticeExtra');install.packages('foreign');install.packages('htmlTable');install.packages('fields');install.packages('plotrix');install.packages('randomForestSRC');install.packages('tidytext');install.packages('textreuse');devtools::install_github('ramnathv/rChartsCalmap');devtools::install_github('lchiffon/wordcloud2');devtools::install_github('ijlyttle/bsplus')"
+
 
 
 
@@ -206,14 +203,9 @@ RUN mkdir /home/jovyan/mysql/ && \
 
 COPY my.cnf /etc/mysql/my.cnf 
 
+RUN conda remove julia -y
 
-
-###richtig einordnen
-RUN R -e "chooseCRANmirror(31,graphics=F);install.packages('randomcoloR');install.packages('acepack');install.packages('Formula');options(unzip = 'internal');devtools::install_github('cran/latticeExtra');install.packages('foreign');install.packages('htmlTable');install.packages('fields');install.packages('plotrix');install.packages('randomForestSRC');install.packages('tidytext');install.packages('textreuse');devtools::install_github('ramnathv/rChartsCalmap');devtools::install_github('lchiffon/wordcloud2');devtools::install_github('ijlyttle/bsplus')"
-COPY fifer/ /opt/conda/lib/R/library/fifer
-COPY Hmisc/ /opt/conda/lib/R/library/Hmisc
-
-RUN conda clean -a
+RUN conda clean -a -y
 
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
