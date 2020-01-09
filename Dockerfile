@@ -4,17 +4,6 @@
 FROM jupyter/datascience-notebook:7a0c7325e470
 
 
-# Install some more python packages
-# conda-forge is already added in https://github.com/jupyter/docker-stacks/blob/master/base-notebook/Dockerfile
-RUN conda install --quiet --yes \
-    'lxml=4.2.*' \
-    'wordcloud=1.5.*' && \
-    conda clean -tipsy && \
-    fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
-
-
-
 USER $NB_USER
 
 RUN pip install --no-cache-dir nbgitpuller
@@ -139,9 +128,11 @@ Run apt-get update && \
     R -e "chooseCRANmirror(31,graphics=F);install.packages('Matrix');install.packages('igraph');install.packages('networkD3');install.packages('slam');install.packages('tm');install.packages('diffr');options(unzip = 'internal');devtools::install_github('ThomasSiegmund/shinyTypeahead')"  && \
     conda update -y conda  && \
     conda install -y spacy  && \
+    conda clean -tipsy && \
+    fix-permissions $CONDA_DIR && \
+    fix-permissions /home/$NB_USER
     python -m spacy download de  && \
     python -m spacy download en  && \
-    chown -R jovyan /opt/conda/  && \
     R -e "chooseCRANmirror(31,graphics=F);install.packages('shinyalert')"  && \
     R -e "chooseCRANmirror(31,graphics=F);install.packages('globals');install.packages('listenv');install.packages('https://cran.r-project.org/src/contrib/Archive/future/future_1.8.1.tar.gz', repos=NULL, type='source')" && \
     R -e "chooseCRANmirror(31,graphics=F);install.packages('randomcoloR');install.packages('acepack');install.packages('Formula');options(unzip = 'internal');devtools::install_github('cran/latticeExtra');install.packages('foreign');install.packages('htmlTable');install.packages('fields');install.packages('plotrix');install.packages('randomForestSRC');install.packages('tidytext');install.packages('textreuse');devtools::install_github('ramnathv/rChartsCalmap');devtools::install_github('lchiffon/wordcloud2');devtools::install_github('ijlyttle/bsplus')"
