@@ -1,7 +1,7 @@
 # https://hub.docker.com/r/jupyter/datascience-notebook/tags/
 # https://github.com/jupyter/docker-stacks/tree/master/datascience-notebook
 
-jupyter/datascience-notebook:7a0c7325e470
+FROM jupyter/datascience-notebook:7a0c7325e470
 
 
 # Install some more python packages
