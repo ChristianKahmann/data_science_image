@@ -99,9 +99,9 @@
        other than the default ./data under the Solr home.  If
        replication is in use, this should match the replication
        configuration.
-    -->
-  <dataDir>/home/jovyan/solr/${solr.core.name}</dataDir>
 
+  <dataDir>/home/jovyan/solr/${solr.core.name}</dataDir>
+    -->
 
   <!-- The DirectoryFactory to use for indexes.
        
