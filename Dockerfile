@@ -130,7 +130,7 @@ Run apt-get update && \
     conda install -y spacy  && \
     conda clean -tipsy && \
     fix-permissions $CONDA_DIR && \
-    fix-permissions /home/$NB_USER
+    fix-permissions /home/$NB_USER && \
     python -m spacy download de  && \
     python -m spacy download en  && \
     R -e "chooseCRANmirror(31,graphics=F);install.packages('shinyalert')"  && \
