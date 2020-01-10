@@ -194,7 +194,7 @@ RUN mkdir /home/jovyan/mysql/ && \
 
 COPY my.cnf /etc/mysql/my.cnf 
 
-RUN conda remove julia -y
+#RUN conda remove julia -y
 
 RUN conda clean -a -y
 
