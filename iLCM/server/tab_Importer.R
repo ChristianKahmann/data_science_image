@@ -55,8 +55,8 @@ observeEvent(input$Import_csv_new,ignoreInit = T,{
 
 observeEvent(input$Import_load_csv,{
   withBusyIndicatorServer("Import_load_csv", {
-    values$data_csv<-utils::read.csv(file = paste0("data_import/unprocessed_data/",input$Import_csv_files),header = input$Import_load_csv_header,
-                                     sep =input$import_load_csv_seperator ,fileEncoding = input$import_load_csv_encoding)
+    values$data_csv<-readr::read_delim(file = paste0("data_import/unprocessed_data/",input$Import_csv_files),col_names = input$Import_load_csv_header,
+                                     delim = input$import_load_csv_seperator,na = character() )
     colnames(values$data_csv)<-stringr::str_replace_all(string = colnames(values$data_csv),pattern = "\\.",replacement = " ")
     if(dim(values$data_csv)[1]<2 | dim(values$data_csv)[2]<2){
       text<-paste0("The resulting input dimesions are: ",dim(values$data_csv)[1]," x ",dim(values$data_csv)[2],". Something went wrong during the input. Make sure to specify the csv input parameters correct.")
@@ -3109,8 +3109,8 @@ observeEvent(input$Import_to_solr,{
       paste0(url,"dataimport?command=delta-import"),followlocation=TRUE
     )
     #initiate suggest
-        z<-RCurl::getURL(
-          paste0(url,"suggest?suggest.build=true"),followlocation=TRUE
+    z<-RCurl::getURL(
+      paste0(url,"suggest?suggest.build=true"),followlocation=TRUE
     )
     shinyWidgets::sendSweetAlert(type = "success",session = session,title =  "successfully started solr delta import and solr suggest")
   })

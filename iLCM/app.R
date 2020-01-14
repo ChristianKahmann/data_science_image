@@ -6,8 +6,8 @@ library(shinydashboard)
 #library(semantic.dashboard)
 library(dashboardthemes)
 library(shinythemes)
-#library(shinyTree)
-#library(shinyTable)
+library(shinyTree)
+library(shinyTable)
 library(rhandsontable)
 library(readtext)
 library(tools)
@@ -88,7 +88,9 @@ source("global/deduplication_decision.R")
 source("global/task_id_functions.R")
 source("www/ilcm_dashboard_theme.R")
 source("config_file.R")
+
 source("ui/tab_loginPage.R")
+
 
 
 if(look=="fancy"){
@@ -157,6 +159,7 @@ server <- function(input, output, session) {
   
   login = FALSE
   USER <- reactiveValues(login = login)
+  shiny::updateTabsetPanel(session = session,inputId = "tabs",selected = "Explorer")
   
   observeEvent(input$login,{ 
     if (USER$login == FALSE) {
