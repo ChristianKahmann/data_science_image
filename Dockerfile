@@ -188,7 +188,7 @@ RUN chmod -R 777 /var/lib/mysql && \
 
 RUN mkdir /home/jovyan/iLCM/mysql/ && \
     cp -r /var/lib/mysql/* /home/jovyan/iLCM/mysql/ && \
-    chown -R jovyan /home/jovyan/mysql  && \
+    chown -R jovyan /home/jovyan/iLCM/mysql  && \
     mkdir /home/jovyan/iLCM/solr/ && \
     chown -R jovyan /home/jovyan/iLCM/solr
 
