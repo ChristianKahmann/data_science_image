@@ -100,7 +100,7 @@
        replication is in use, this should match the replication
        configuration.
     -->
-  <dataDir>/home/jovyan/solr/${solr.core.name}</dataDir>
+  <dataDir>/home/jovyan/iLCM/solr/${solr.core.name}</dataDir>
 
 
   <!-- The DirectoryFactory to use for indexes.

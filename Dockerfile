@@ -186,11 +186,11 @@ RUN chmod -R 777 /var/lib/mysql && \
 
 
 
-RUN mkdir /home/jovyan/mysql/ && \
-    cp -r /var/lib/mysql/* /home/jovyan/mysql/ && \
+RUN mkdir /home/jovyan/iLCM/mysql/ && \
+    cp -r /var/lib/mysql/* /home/jovyan/iLCM/mysql/ && \
     chown -R jovyan /home/jovyan/mysql  && \
-    mkdir /home/jovyan/solr/ && \
-    chown -R jovyan /home/jovyan/solr
+    mkdir /home/jovyan/iLCM/solr/ && \
+    chown -R jovyan /home/jovyan/iLCM/solr
 
 COPY my.cnf /etc/mysql/my.cnf 
 
